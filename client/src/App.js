@@ -1,46 +1,32 @@
 import React, { Component } from "react";
-import logo from "./logo.svg";
-import "./App.css";
-import { callApi } from "./utils";
+import { Router, Route, Switch } from "react-router-dom";
+import { createBrowserHistory } from "history";
+import { Provider } from "react-redux";
+import { PersistGate } from "redux-persist/lib/integration/react";
+import Full from "./container/Full";
+
+// Store
+
+// import the two exports from the last code snippet.
+import { persistor, store } from "./store";
+// import your necessary custom components.
+
+export const history = createBrowserHistory();
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      data: null
-    };
-  }
-
-  verifyServerRunning = () => {
-    callApi("/express_backend")
-      .then(data => {
-        console.log(data)
-      })
-      .catch(err => console.log(err));
-  };
-
-  componentDidMount() {
-    this.verifyServerRunning()
-  }
-
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
+      <Provider store={store}>
+        <div>
+          <PersistGate persistor={persistor}>
+            <Router history={history}>
+              <Switch>
+                <Route path="/" name="Home" component={Full} />
+              </Switch>
+            </Router>
+          </PersistGate>
+        </div>
+      </Provider>
     );
   }
 }
