@@ -1,5 +1,5 @@
 const Theme = {
-  BaseColor: '#282c34',
+  BaseColor: "#54688f",
   BaseRadius: "2px",
   BaseRed: "#F2290D",
   BaseGreen: "#59CBDD",

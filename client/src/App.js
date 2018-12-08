@@ -5,11 +5,14 @@ import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/lib/integration/react";
 import Full from "./container/Full";
 
-// Store
+// Bootstrap
+import 'bootstrap/dist/css/bootstrap.min.css';
 
-// import the two exports from the last code snippet.
+// Fontello
+import './fontello/css/fontello.css'
+
+// Store
 import { persistor, store } from "./store";
-// import your necessary custom components.
 
 export const history = createBrowserHistory();
 

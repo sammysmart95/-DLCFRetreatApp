@@ -1,9 +1,11 @@
 import React, { Component } from "react";
 import logo from "../../logo.svg";
-import "./WelcomePage.css";
+import { Link } from "react-router-dom";
 import { Button } from "../../components";
-import { callApi } from "../../utils";
-import { config } from '../../config'
+import { Row, Col } from "reactstrap";
+import { config } from "../../config";
+import Theme from "../../theme";
+import "./WelcomePage.css";
 
 class WelcomePage extends Component {
   constructor(props) {
@@ -30,9 +32,27 @@ class WelcomePage extends Component {
       <div className="App">
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to {config.programName}, {config.year}</h2>
+          <h2>
+            Welcome to {config.programName}, {config.year}
+          </h2>
           <div className="footer-button">
-            <Button fullWidth >Go To App</Button>
+            <Row>
+              <Col md={3}/>
+              <Col md={3}>
+                <Link to="/app">
+                  <Button fullWidth color={Theme.BaseGreen}>
+                    Go To App
+                  </Button>
+                </Link>
+              </Col>
+              <Col md={3}>
+                <Link to="/login">
+                  <Button fullWidth color={Theme.BaseRed}>
+                    Admin Login
+                  </Button>
+                </Link>
+              </Col>
+            </Row>
           </div>
         </header>
       </div>
