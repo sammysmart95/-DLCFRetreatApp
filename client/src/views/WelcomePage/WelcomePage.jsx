@@ -1,11 +1,11 @@
 import React, { Component } from "react";
-import logo from "../../logo.svg";
 import { Link } from "react-router-dom";
 import { Button } from "../../components";
 import { Row, Col } from "reactstrap";
 import { config } from "../../config";
 import Theme from "../../theme";
 import "./WelcomePage.css";
+import logo from '../../assets/imgs/logo.png'
 
 class WelcomePage extends Component {
   constructor(props) {

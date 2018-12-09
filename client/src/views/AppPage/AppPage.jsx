@@ -7,21 +7,21 @@ const MainMenu = [
   {
     id: "0001",
     name: "Register",
-    route: "/register",
+    route: "/register-menu",
     icon: "icon-edit"
   },
   {
     id: "0002",
     name: "Downloads",
     route: "/downloads",
-    icon: "icon-headphones"
+    icon: "icon-download-1"
   }
 ];
 
 class AppPage extends Component {
   render() {
     return (
-      <Card >
+      <Card className="app-page-container">
         <CardHeader
           style={{
             textAlign: "center",
