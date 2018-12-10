@@ -3,13 +3,18 @@ import { Router, Route, Switch } from "react-router-dom";
 import { createBrowserHistory } from "history";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/lib/integration/react";
+
 import Full from "./container/Full";
+import Alert from './components/Alert'
 
 // Bootstrap
-import 'bootstrap/dist/css/bootstrap.min.css';
+import "bootstrap/dist/css/bootstrap.min.css";
 
 // Fontello
-import './fontello/css/fontello.css'
+import "./fontello/css/fontello.css";
+
+// BlockUI
+import 'react-block-ui/style.css'
 
 // Store
 import { persistor, store } from "./store";
@@ -28,6 +33,7 @@ class App extends Component {
               </Switch>
             </Router>
           </PersistGate>
+        <Alert />
         </div>
       </Provider>
     );

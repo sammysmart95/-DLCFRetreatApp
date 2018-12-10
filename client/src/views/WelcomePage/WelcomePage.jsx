@@ -5,6 +5,7 @@ import { Row, Col } from "reactstrap";
 import { config } from "../../config";
 import Theme from "../../theme";
 import "./WelcomePage.css";
+import { callApi } from '../../utils/index'
 import logo from '../../assets/imgs/logo.png'
 
 class WelcomePage extends Component {
@@ -15,13 +16,13 @@ class WelcomePage extends Component {
     };
   }
 
-  // verifyServerRunning = () => {
-  //   callApi("/express_backend")
-  //     .then(data => {
-  //       console.log(data)
-  //     })
-  //     .catch(err => console.log(err));
-  // };
+  verifyServerRunning = () => {
+    callApi("/api/me")
+      .then(data => {
+        console.log(data)
+      })
+      .catch(err => console.log(err));
+  };
 
   componentDidMount() {
     // this.verifyServerRunning()

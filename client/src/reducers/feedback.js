@@ -4,14 +4,13 @@ import {
   SHOW_INFO,
   CLEAR_INFO,
   SHOW_LOADING,
-  STOP_LOADING,
-} from '../actions/feedback'
+  STOP_LOADING
+} from "../actions/feedback";
 
 const init = {
   loading: false,
-  errors: [],
-  infos: [],
-}
+  infos: []
+};
 
 // Feedback Reducer
 export default (state = init, action) => {
@@ -19,40 +18,40 @@ export default (state = init, action) => {
     case SHOW_ERROR:
       return {
         ...state,
-        errors: [{ error: action.error, id: action.id }],
-      }
+        infos: [{ info: action.error, id: action.id, color: "danger" }]
+      };
 
     case CLEAR_ERROR:
       return {
         ...state,
-        errors: state.errors.filter(error => error.id !== action.id),
-      }
+        infos: state.infos.filter(error => error.id !== action.id)
+      };
 
     case SHOW_INFO:
       return {
         ...state,
-        infos: state.infos.concat({ info: action.info, id: action.id }),
-      }
+        infos: [{ info: action.info, id: action.id, color: "success" }]
+      };
 
     case CLEAR_INFO:
       return {
         ...state,
-        infos: state.infos.filter(info => info.id !== action.id),
-      }
+        infos: state.infos.filter(info => info.id !== action.id)
+      };
 
     case SHOW_LOADING:
       return {
         ...state,
-        loading: true,
-      }
+        loading: true
+      };
 
     case STOP_LOADING:
       return {
         ...state,
-        loading: false,
-      }
+        loading: false
+      };
 
     default:
-      return state
+      return state;
   }
-}
+};

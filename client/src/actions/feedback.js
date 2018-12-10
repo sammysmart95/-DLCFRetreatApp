@@ -15,7 +15,7 @@ export const showError = error => {
     });
     setTimeout(() => {
       dispatch(clearError(id));
-    }, 2000);
+    }, 5000);
   };
 };
 
@@ -36,7 +36,7 @@ export const showInfo = info => {
     });
     setTimeout(() => {
       dispatch(clearInfo(id));
-    }, 2000);
+    }, 5000);
   };
 };
 
