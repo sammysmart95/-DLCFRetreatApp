@@ -1,12 +1,12 @@
 import express from "express";
-import path from 'path'
-import logger from 'morgan'
-import morgan from 'morgan'
-import mongoose from 'mongoose'
-import bodyParser from 'body-parser'
+import path from "path";
+import logger from "morgan";
+import morgan from "morgan";
+import mongoose from "mongoose";
+import bodyParser from "body-parser";
 import dotenv from "dotenv";
-
-import routes from './routes'
+import cors from "cors";
+import routes from "./routes";
 
 dotenv.config();
 
@@ -15,6 +15,13 @@ const app = express();
 app.use(
   logger("dev", {
     skip: () => app.get("env") === "test"
+  })
+);
+
+app.use(
+  cors({
+    origin: "http://localhost:3000",
+    credentials: true
   })
 );
 
@@ -45,8 +52,8 @@ app.use("/", routes);
 
 app.use((err, req, res, next) => {
   // eslint-disable-line no-unused-vars
-  res.status(err.status || 500).render("error", {
-    error: err.status,
+  res.status(err.status || 500).json({
+    err: err.status,
     message: err.message
   });
 });

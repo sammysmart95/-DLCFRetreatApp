@@ -1,4 +1,5 @@
 import express, { Router } from "express";
+import { CreateParticipant } from './controllers/api'
 import path from "path";
 
 const api = Router();
@@ -14,5 +15,7 @@ api.get("/me", (req, res) => {
     send: 'hey'
   })
 });
+
+api.post('/registerParticipant', CreateParticipant)
 
 export default router;

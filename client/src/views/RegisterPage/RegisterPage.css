@@ -17,6 +17,12 @@
   margin-top: 55px
 }
 
+.body-container div div div {
+  margin-bottom: 5px;
+  padding-top: 10px;
+  border-radius: 0 20px 0 20px
+}
+
 .body-container div {
   margin-bottom: 5px;
   border-radius: 0 20px 0 20px
@@ -66,7 +72,8 @@
 	height: 48px;
 	font-size: 18px;
 	font-weight: 500;
-	border-bottom: 2px solid #c8ccd4;
+  border-bottom: 2px solid #c8ccd4;
+  border-right: 2px solid #c8ccd4;
 	background: none;
 	border-radius: 0;
 	color: #223254;
@@ -82,7 +89,8 @@
 	height: 100px;
 	font-size: 24px;
 	font-weight: 500;
-	border-bottom: 2px solid #c8ccd4;
+  border-bottom: 2px solid #c8ccd4;
+  border-right: 2px solid #c8ccd4;
 	background: none;
 	border-radius: 0;
 	color: #223254;

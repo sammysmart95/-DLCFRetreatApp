@@ -11,7 +11,8 @@ const AlertComponent = ({ dispatch, infos }) => {
         position: "fixed",
         top: "5px",
         right: "5px",
-        zIndex: 99999999
+        zIndex: 99999999,
+        textAlign: 'center'
       }}
     >
       <div className="alertBox">
@@ -21,12 +22,12 @@ const AlertComponent = ({ dispatch, infos }) => {
             key={i}
             toggle={() => dispatch(clearInfo(info.id))}
           >
-            <h4 className="alert-heading">
+            <h4 className="alert-heading" >
               {info.color === "success"
-                ? "Info 👍🏽"
+                ? "👍🏽"
                 : info.color === "warning"
-                  ? "Warning ⚠️"
-                  : "Error!!! ⁉️"}
+                  ? "⚠️"
+                  : "❌"}
             </h4>
             <p> {info.info} </p>
           </Alert>

@@ -1,4 +1,7 @@
 import 'whatwg-fetch';
+import {config} from '../config'
+
+const serverURL = config.serverURL
 
 export const callApi = (url, data, method) => {
   console.log('Calling API... ' + url);
@@ -16,7 +19,7 @@ export const callApi = (url, data, method) => {
       options.headers.Accept = 'application/json';
       options.headers['Content-Type'] = 'application/json';
     }
-    fetch(`${url}`, options)
+    fetch(`${serverURL}api${url}`, options)
       .then(res => {
         if (res.ok) return res.json();
         reject(new Error(res.statusText));

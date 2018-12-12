@@ -21,6 +21,14 @@ const participantsSchema = new Schema({
     type: String,
     required: true
   },
+  address: {
+    type: String,
+    required: true
+  },
+  email: {
+    type: String,
+    required: true
+  },
   status: {
     type: String,
     required: true
@@ -32,7 +40,7 @@ const participantsSchema = new Schema({
   institution: {
     type: String
   },
-  institutionAddress: {
+  course: {
     type: String
   },
   ageGroup : {

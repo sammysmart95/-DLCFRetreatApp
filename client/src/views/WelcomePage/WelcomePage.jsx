@@ -16,16 +16,7 @@ class WelcomePage extends Component {
     };
   }
 
-  verifyServerRunning = () => {
-    callApi("/api/me")
-      .then(data => {
-        console.log(data)
-      })
-      .catch(err => console.log(err));
-  };
-
   componentDidMount() {
-    // this.verifyServerRunning()
   }
 
   render() {
@@ -36,6 +27,9 @@ class WelcomePage extends Component {
           <h2>
             Welcome to {config.programName}, {config.year}
           </h2>
+          <h4>
+            (Campus Section)
+          </h4>
           <div className="footer-button">
             <Row>
               <Col md={3}/>
