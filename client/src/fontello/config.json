@@ -29,6 +29,18 @@
       "css": "download",
       "code": 59394,
       "src": "typicons"
+    },
+    {
+      "uid": "86ee1fc7ff57e9c9c60d8a5e57183776",
+      "css": "user",
+      "code": 59396,
+      "src": "iconic"
+    },
+    {
+      "uid": "8beac4a5fd5bed9f82ca7a96cc8ba218",
+      "css": "key",
+      "code": 59397,
+      "src": "entypo"
     }
   ]
 }
