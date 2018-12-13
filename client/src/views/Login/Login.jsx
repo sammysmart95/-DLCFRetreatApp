@@ -21,10 +21,8 @@ class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      userDetails: {
         username: "",
         password: ""
-      }
     };
   }
 
@@ -32,26 +30,23 @@ class Login extends Component {
     let { name, value } = e.target;
     this.setState({
       ...this.state,
-      userDetails: {
-        ...this.state.userDetails,
-        [name]: value
-      }
+      [name]: value
     });
   }
 
   submit() {
-    let { username, password } = this.state.userDetails;
+    let { username, password } = this.state;
     if (!username) {
       return this.props.dispatch(showError("Username field is required"));
     }
     if (!password) {
       return this.props.dispatch(showError("Please provide a valid password"));
     }
-    return this.props.dispatch(startLogin(this.state.userDetails))
+    return this.props.dispatch(startLogin({user: this.state}))
   }
 
   render() {
-    const { username, password } = this.state.userDetails;
+    const { username, password } = this.state;
     return (
       <div className="login-container">
           <Row className="justify-content-center">
@@ -92,7 +87,7 @@ class Login extends Component {
                       <Button
                         color="primary"
                         className="px-4"
-                        // onClick={() => this.submit()}
+                        onClick={() => this.submit()}
                       >
                         Login
                       </Button>

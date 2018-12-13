@@ -19,13 +19,12 @@ class Full extends Component {
   render() {
     return (
         <Switch>
-          <Route path='/login' name="Login Page" component={Login} />
           <Route path='/register' name="Login Page" component={Register} />
           <Route path='/app' name='App Page' component={AppPage} />
           <Route path='/downloads' name='Upload File' component={DownloadPage} />
-          <Route path='/register-menu' name="Login Page" component={RegisterPage} />
-          <Route path='/welcome' name="Login Page" component={WelcomePage} />
-          <Route path='/auth' name="Login Page" component={AuthContainer} />
+          <Route path='/register-menu' name="Register Page" component={RegisterPage} />
+          <Route path='/welcome' name="Welcome Page" component={WelcomePage} />
+          <Route path='/auth' name="Admin Page" component={AuthContainer} />
           <Redirect from="/" to="/welcome" />
         </Switch>
     );

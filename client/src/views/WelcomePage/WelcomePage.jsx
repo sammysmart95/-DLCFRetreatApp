@@ -1,22 +1,41 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
 import { Button } from "../../components";
 import { Row, Col } from "reactstrap";
 import { config } from "../../config";
 import Theme from "../../theme";
 import "./WelcomePage.css";
-import { callApi } from '../../utils/index'
-import logo from '../../assets/imgs/logo.png'
+import { login } from "../../actions/auth";
+import { callApi } from "../../utils/index";
+import logo from "../../assets/imgs/logo.png";
 
 class WelcomePage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: null
+      authenticated: this.props.authenticated
     };
   }
 
   componentDidMount() {
+    if (!this.props.authenticated) {
+      callApi("/me")
+        .then(response => {
+          if (response.authenticated) {
+            this.setState({
+              authenticated: true
+            });
+          } else {
+            this.setState({ authenticated: false });
+          }
+        })
+        .catch(err => {
+          this.setState({ authenticated: false });
+        });
+    } else {
+      this.setState({ authenticated: true });
+    }
   }
 
   render() {
@@ -27,12 +46,10 @@ class WelcomePage extends Component {
           <h2>
             Welcome to {config.programName}, {config.year}
           </h2>
-          <h4>
-            (Campus Section)
-          </h4>
+          <h4>(Campus Section)</h4>
           <div className="footer-button">
             <Row>
-              <Col md={3}/>
+              <Col md={3} />
               <Col md={3}>
                 <Link to="/app">
                   <Button fullWidth color={Theme.BaseGreen}>
@@ -41,9 +58,15 @@ class WelcomePage extends Component {
                 </Link>
               </Col>
               <Col md={3}>
-                <Link to="/login">
+                <Link
+                  to={
+                    this.state.authenticated
+                      ? "/auth/adminAppPage"
+                      : "/auth/login"
+                  }
+                >
                   <Button fullWidth color={Theme.BaseRed}>
-                    Admin Login
+                    {!this.state.authenticated ? "Admin Login" : "Admin Menu"}
                   </Button>
                 </Link>
               </Col>
@@ -54,5 +77,11 @@ class WelcomePage extends Component {
     );
   }
 }
+const mapStateToProps = state => {
+  return {
+    authenticated: state.auth.authenticated,
+    user: state.auth.user
+  };
+};
 
-export default WelcomePage;
+export default connect(mapStateToProps)(WelcomePage);

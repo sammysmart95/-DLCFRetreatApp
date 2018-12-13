@@ -19,9 +19,15 @@ app.use(
   })
 );
 
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
+
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: "http://192.168.0.100:3000",
     credentials: true
   })
 );
@@ -49,6 +55,7 @@ mongoose.connect(
 );
 
 app.use(fileUpload());
+
 
 // Routes
 app.use("/", routes);

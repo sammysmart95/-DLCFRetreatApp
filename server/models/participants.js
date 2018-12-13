@@ -5,50 +5,54 @@ const Schema = mongoose.Schema;
 
 const participantsSchema = new Schema({
   sid: {
-    type: String,
+    type: Schema.Types.String,
     required: true,
-    default: uuid
+    default: uuid,
+    unique: true,
   },
   fullName: {
-    type: String,
+    type: Schema.Types.String,
     required: true
   },
   phoneNumber: {
-    type: String,
-    required: true
+    type: Schema.Types.String,
+    required: true,
+    index: true,
+    unique: true,
   },
   gender: {
-    type: String,
+    type: Schema.Types.String,
     required: true
   },
   address: {
-    type: String,
+    type: Schema.Types.String,
     required: true
   },
   email: {
-    type: String,
-    required: true
+    type: Schema.Types.String,
+    required: true,
+    unique: true,
   },
   status: {
-    type: String,
+    type: Schema.Types.String,
     required: true
   },
   denomination: {
-    type: String,
+    type: Schema.Types.String,
     required: true
   },
   institution: {
-    type: String
+    type: Schema.Types.String
   },
   course: {
-    type: String
+    type: Schema.Types.String
   },
   ageGroup : {
-    type: String,
+    type: Schema.Types.String,
     required: true
   },
   category: {
-    type: String,
+    type: Schema.Types.String,
     required: true
   },
   created: {

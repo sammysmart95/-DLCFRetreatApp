@@ -3,8 +3,9 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { startLogin } from "../../actions/auth";
 import { showError, showInfo } from "../../actions/feedback";
-import { fileUpload } from '../../utils/index'
+import { fileUpload } from "../../utils/index";
 import "./UploadFile.css";
+import BlockUI from "react-block-ui";
 
 import {
   Button,
@@ -25,6 +26,7 @@ class UploadFile extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      blocking: false,
       fileName: "",
       file: null
     };
@@ -34,16 +36,16 @@ class UploadFile extends Component {
     let { name, value } = e.target;
     this.setState({
       ...this.state,
-        [name]: value
+      [name]: value
     });
   }
 
   handleFileInputChange = ({ target }) => {
-    const { files } = target
+    const { files } = target;
     this.setState({
       ...this.state,
       file: files[0]
-    })
+    });
   };
 
   submit() {
@@ -54,18 +56,29 @@ class UploadFile extends Component {
     if (!file) {
       return this.props.dispatch(showError("Select a file"));
     }
-    fileUpload({fileName, file}).then(res => {
-      console.log(res)
-    }).catch(err => {
-      console.log(err)
+    this.setState({
+      blocking: true
     })
+    fileUpload({ fileName, file })
+      .then(res => {
+        this.setState({
+          blocking: false,
+          fileName: "",
+          file: null
+        })
+        this.props.dispatch(showInfo('Uploaded Successfully'))
+      })
+      .catch(err => {
+        console.log(err);
+      });
   }
 
   render() {
-    const { fileName } = this.state;
+    const { fileName, blocking } = this.state;
     return (
       <div className="login-container">
-          <Col md="8">
+        <Col md="8">
+          <BlockUI blocking={blocking}>
             <Card className="p-4">
               <CardBody>
                 <p className="text-muted">File Upload</p>
@@ -79,10 +92,16 @@ class UploadFile extends Component {
                   />
                 </InputGroup>
                 <Form>
-                <FormGroup>
-                  <Label for="exampleFile">Select File</Label>
-                  <Input type="file" name="file" id="exampleFile" accept="audio/*" onChange={this.handleFileInputChange} />
-                </FormGroup>
+                  <FormGroup>
+                    <Label for="exampleFile">Select File</Label>
+                    <Input
+                      type="file"
+                      name="file"
+                      id="exampleFile"
+                      accept="audio/*"
+                      onChange={this.handleFileInputChange}
+                    />
+                  </FormGroup>
                 </Form>
                 <Row>
                   <Col xs="6">
@@ -97,7 +116,8 @@ class UploadFile extends Component {
                 </Row>
               </CardBody>
             </Card>
-          </Col>
+          </BlockUI>
+        </Col>
       </div>
     );
   }

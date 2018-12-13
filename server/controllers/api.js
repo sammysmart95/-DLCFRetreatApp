@@ -49,3 +49,17 @@ export const DownloadFile = (req, res) => {
     });
   })
 }
+
+export const AuthMe = (req, res) => {
+  let user = req.user;
+  console.log(user)
+  if (user) {
+    return res.json({
+      authenticated: true,
+      user: user
+    });
+  }
+  return res.json({
+    authenticated: false
+  });
+};

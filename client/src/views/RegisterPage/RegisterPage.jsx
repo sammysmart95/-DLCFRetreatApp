@@ -80,7 +80,7 @@ class RegisterPage extends Component {
           blocking: false,
         })
         this.props.dispatch(
-          showError("Please crosscheck your form and submit again")
+          showError("Phone number or email has already been used")
         )
       }
       );
