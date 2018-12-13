@@ -1,188 +1,107 @@
 import React, { Component } from "react";
-import { Card, Row, Col, CardBody, CardHeader } from "reactstrap";
+import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import { callApi } from "../../utils/index";
+import { startRegister } from "../../actions/auth";
 import { showError, showInfo } from "../../actions/feedback";
-import ParticipantDetails from "../../components/ParticipantDetails.jsx";
-import './Register.css'
+import "./Register.css";
+
+import {
+  Button,
+  Card,
+  CardBody,
+  Col,
+  Input,
+  InputGroup,
+  InputGroupAddon,
+  InputGroupText,
+  Row
+} from "reactstrap";
 
 class Register extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      timeout: 300,
-      inputs: {
-        fullName: "",
-        phoneNumber: "",
-        gender: "",
-        state: "Nasarawa State",
-        denomination: "",
-        languagesSpoken: "",
-        institution: "",
-        institutionAddress: "",
-        level: "",
-        category: "FYB"
-      },
-      fetching: false,
-      activeTab: "1"
+      userDetails: {
+        username: "",
+        password: ""
+      }
     };
   }
 
   handleInputChange(e) {
     let { name, value } = e.target;
-    let expectedInputs = {
-      ...this.state.inputs,
-      [name]: value
-    };
-    if (name === "state") {
-      expectedInputs = {
-        ...expectedInputs,
-      };
-    }
     this.setState({
       ...this.state,
-      inputs: {
-        ...expectedInputs
+      userDetails: {
+        ...this.state.userDetails,
+        [name]: value
       }
-    });
-  }
-
-  handleNumberInputChange = event => {
-    event.preventDefault();
-    const { value } = event.target;
-    if (value.match(/^\d+$/) || value === "") {
-      this.setState({
-        ...this.state,
-        inputs: {
-          ...this.state.inputs,
-          phoneNumber: value
-        }
-      });
-    }
-  };
-
-  handleSwitchChange = type => {
-    this.setState({
-      ...this.state,
-      inputs: {
-        ...this.state.inputs,
-        negotiable: type === "negotiable"
-      }
-    });
-  };
-
-  clearFetching() {
-    this.setState({
-      ...this.state,
-      fetching: false
     });
   }
 
   submit() {
-    const {
-      fullName,
-      phoneNumber,
-      gender,
-      state,
-      denomination
-    } = this.state.inputs;
-    if (!fullName) {
-      this.props.dispatch(showError("Provide name"));
-      return;
+    let { username, password } = this.state.userDetails;
+    if (!username) {
+      return this.props.dispatch(showError("Username field is required"));
     }
-    if (!phoneNumber) {
-      this.props.dispatch(showError("Provide Phone Number"));
-      return;
+    if (!password) {
+      return this.props.dispatch(showError("Please provide a valid password"));
     }
-    if (!gender) {
-      this.props.dispatch(showError("Provide gender"));
-      return;
-    }
-    if (!state) {
-      this.props.dispatch(showError("Provide State of Origin"));
-      return;
-    }
-    if (!denomination) {
-      this.props.dispatch(showError("Provide denomination"));
-      return;
-    } else {
-      this.setState({
-        ...this.state,
-        fetching: true
-      });
-      callApi("/createParticipant", this.state.inputs, "POST")
-        .then(data => {
-          this.props.dispatch(showInfo("Participant Successfully Registered"));
-          this.clearFetching();
-          this.resetState();
-        })
-        .catch(err => {
-          this.props.dispatch(showError("Error Creating Participant"));
-          this.clearFetching();
-        });
-    }
+    return this.props.dispatch(startRegister({ user: this.state.userDetails }));
   }
-
-  resetState() {
-    const resetState = {
-      timeout: 300,
-      uploadFile: null,
-      uploading: false,
-      imageUrl: "",
-      inputs: {
-        fullName: "",
-        phoneNumber: "",
-        gender: "",
-        state: "Nasarawa State",
-        denomination: "",
-        languagesSpoken: "",
-        institution: "",
-        institutionAddress: "",
-        level: "",
-        category: "FYB"
-      },
-      activeTab: "1"
-    };
-    this.setState({
-      ...resetState
-    });
-  }
-
-  toggle = (tab, tabName) => {
-    if (this.state.activeTab !== tab) {
-      this.setState({
-        activeTab: tab,
-        inputs: {
-          ...this.state.inputs,
-          category: tabName
-        }
-      });
-    }
-  };
 
   render() {
-    const { inputs, fetching, activeTab } = this.state;
+    const { username, password } = this.state.userDetails;
     return (
-      <div className="register-page-container">
-        <Card>
-          <CardHeader> Registration</CardHeader>
-          <CardBody>
-            <Row>
-              <Col>
-                <ParticipantDetails
-                  data={inputs}
-                  handleInputChange={e => this.handleInputChange(e)}
-                  submit={() => this.submit()}
-                  handleNumberInputChange={e => this.handleNumberInputChange(e)}
-                  handleSwitchChange={e => this.handleSwitchChange(e)}
-                  fetching={fetching}
-                  toggle={this.toggle}
-                  activeTab={activeTab}
-                />
-              </Col>
-            </Row>
-          </CardBody>
-        </Card>
+      <div className="login-container">
+        <Row className="justify-content-center">
+          <Col md="8">
+            <Card className="p-4">
+              <CardBody>
+                <p className="text-muted">Create Account</p>
+                <InputGroup className="mb-3">
+                  <InputGroupAddon addonType="prepend">
+                    <InputGroupText>
+                      <i className="icon-user" />
+                    </InputGroupText>
+                  </InputGroupAddon>
+                  <Input
+                    type="text"
+                    placeholder="Username"
+                    name="username"
+                    onChange={e => this.handleInputChange(e)}
+                    value={username}
+                  />
+                </InputGroup>
+                <InputGroup className="mb-4">
+                  <InputGroupAddon addonType="prepend">
+                    <InputGroupText>
+                      <i className="icon-key" />
+                    </InputGroupText>
+                  </InputGroupAddon>
+                  <Input
+                    type="password"
+                    placeholder="Password"
+                    name="password"
+                    onChange={e => this.handleInputChange(e)}
+                    value={password}
+                  />
+                </InputGroup>
+                <Row>
+                  <Col xs="6">
+                    <Button
+                      color="primary"
+                      className="px-4"
+                      onClick={() => this.submit()}
+                    >
+                      Register
+                    </Button>
+                  </Col>
+                </Row>
+              </CardBody>
+            </Card>
+          </Col>
+        </Row>
       </div>
     );
   }

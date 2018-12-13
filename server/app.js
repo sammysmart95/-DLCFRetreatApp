@@ -7,6 +7,7 @@ import bodyParser from "body-parser";
 import dotenv from "dotenv";
 import cors from "cors";
 import routes from "./routes";
+import fileUpload from 'express-fileupload'
 
 dotenv.config();
 
@@ -46,6 +47,8 @@ mongoose.connect(
     console.log("Database Connected Successfully!");
   }
 );
+
+app.use(fileUpload());
 
 // Routes
 app.use("/", routes);

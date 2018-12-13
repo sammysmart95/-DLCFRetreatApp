@@ -92,7 +92,7 @@ class Login extends Component {
                       <Button
                         color="primary"
                         className="px-4"
-                        onClick={() => this.submit()}
+                        // onClick={() => this.submit()}
                       >
                         Login
                       </Button>

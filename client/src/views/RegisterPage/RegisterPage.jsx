@@ -36,12 +36,9 @@ class RegisterPage extends Component {
       gender,
       address,
       phoneNumber,
-      // email,
       status,
       denomination,
       category,
-      // institution,
-      // course,
       ageGroup
     } = this.state.inputs;
 
@@ -66,15 +63,26 @@ class RegisterPage extends Component {
     if (!ageGroup) {
       return this.props.dispatch(showError("Select age group"));
     }
+    this.setState({
+      ...this.state,
+      blocking: true,
+    })
     callApi("/registerParticipant", this.state.inputs, "POST")
       .then(data => {
         this.props.dispatch(showInfo(data.message));
+        this.setState({
+          blocking: false,
+        })
         history.push('/app')
       })
-      .catch(err =>
+      .catch(err => {
+        this.setState({
+          blocking: false,
+        })
         this.props.dispatch(
           showError("Please crosscheck your form and submit again")
         )
+      }
       );
   };
 

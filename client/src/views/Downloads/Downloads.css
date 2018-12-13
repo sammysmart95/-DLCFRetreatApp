@@ -1,0 +1,19 @@
+.page-container {
+  border: none !important;
+  background-color: #54688f !important ;
+  min-height: 100vmax;
+  padding: 10px;
+}
+
+th:nth-child(3) {
+  width: 30px;
+}
+
+th:first-child {
+  width: 30px;
+}
+
+td:nth-child(3) {
+  text-align: center;
+  cursor: pointer;
+}

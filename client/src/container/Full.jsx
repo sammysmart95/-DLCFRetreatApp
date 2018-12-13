@@ -7,6 +7,9 @@ import Login from '../views/Login/Login'
 import AppPage from '../views/AppPage/AppPage'
 import Register from '../views/Register/Register'
 import RegisterPage from '../views/RegisterPage/RegisterPage'
+import UploadPage from '../views/UploadFile/UploadFile'
+import DownloadPage from '../views/Downloads/Downloads'
+import AuthContainer from './Auth.jsx'
 
 class Full extends Component {
   constructor(props) {
@@ -17,10 +20,12 @@ class Full extends Component {
     return (
         <Switch>
           <Route path='/login' name="Login Page" component={Login} />
-          <Route path='/app' name='App Page' component={AppPage} />
-          <Route path='/register-menu' name="Login Page" component={RegisterPage} />
           <Route path='/register' name="Login Page" component={Register} />
+          <Route path='/app' name='App Page' component={AppPage} />
+          <Route path='/downloads' name='Upload File' component={DownloadPage} />
+          <Route path='/register-menu' name="Login Page" component={RegisterPage} />
           <Route path='/welcome' name="Login Page" component={WelcomePage} />
+          <Route path='/auth' name="Login Page" component={AuthContainer} />
           <Redirect from="/" to="/welcome" />
         </Switch>
     );
