@@ -27,7 +27,7 @@ app.use(function(req, res, next) {
 
 app.use(
   cors({
-    origin: "http://192.168.0.100:3000",
+    origin: "http://192.168.0.101:3000",
     credentials: true
   })
 );
@@ -55,7 +55,6 @@ mongoose.connect(
 );
 
 app.use(fileUpload());
-
 
 // Routes
 app.use("/", routes);

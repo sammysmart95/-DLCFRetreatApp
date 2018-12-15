@@ -14,7 +14,7 @@
   background-color: #54688f;
   min-height: 100vh;
   padding: 5px;
-  margin-top: 55px
+  padding-top: 55px
 }
 
 .body-container div div div {
@@ -63,7 +63,7 @@
 	transition: all 0.15s ease;
 }
 
-.inp .styled-input {
+.styled-input {
 	-webkit-appearance: none;
 	width: 100%;
 	border: 0;

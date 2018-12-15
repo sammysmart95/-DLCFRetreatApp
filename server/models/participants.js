@@ -8,7 +8,7 @@ const participantsSchema = new Schema({
     type: Schema.Types.String,
     required: true,
     default: uuid,
-    unique: true,
+    unique: true
   },
   fullName: {
     type: Schema.Types.String,
@@ -18,7 +18,7 @@ const participantsSchema = new Schema({
     type: Schema.Types.String,
     required: true,
     index: true,
-    unique: true,
+    unique: true
   },
   gender: {
     type: Schema.Types.String,
@@ -28,10 +28,13 @@ const participantsSchema = new Schema({
     type: Schema.Types.String,
     required: true
   },
+  group: {
+    type: Schema.Types.String
+  },
   email: {
     type: Schema.Types.String,
-    required: true,
-    unique: true,
+    // required: true,
+    unique: true
   },
   status: {
     type: Schema.Types.String,
@@ -47,7 +50,7 @@ const participantsSchema = new Schema({
   course: {
     type: Schema.Types.String
   },
-  ageGroup : {
+  ageGroup: {
     type: Schema.Types.String,
     required: true
   },
@@ -59,7 +62,7 @@ const participantsSchema = new Schema({
     type: Date,
     required: true,
     default: Date.now
-  },
+  }
 });
 
 export default mongoose.model("Participants", participantsSchema);
