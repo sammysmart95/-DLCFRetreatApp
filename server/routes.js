@@ -1,5 +1,5 @@
 import express, { Router } from "express";
-import { CreateParticipant, GetFiles, DownloadFile, AuthMe } from './controllers/api'
+import { CreateParticipant, GetFiles, DownloadFile, AuthMe, GetParticipants } from './controllers/api'
 import { FileUpload } from './controllers/admin'
 import { CreateUser, Login } from './controllers/auth'
 import path from "path";
@@ -20,7 +20,8 @@ router.use("/api", api);
 api.get("/me",  AuthMe);
 
 api.get('/getFiles', GetFiles)
-api.get('/downloadFile/:id', DownloadFile)
+api.post("/getParticipants/:id", GetParticipants);
+// api.get('/downloadFile/:id', DownloadFile)
 
 api.post('/registerParticipant', CreateParticipant)
 api.post('/uploadFile', FileUpload)

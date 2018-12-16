@@ -1,0 +1,14 @@
+
+.App {
+  height: 100%
+}
+
+main {
+  height: 100%;
+  width: 100%;
+  background-color: antiquewhite;
+  margin-top: 50px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}

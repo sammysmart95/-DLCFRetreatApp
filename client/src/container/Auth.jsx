@@ -6,11 +6,9 @@ import UploadPage from "../views/UploadFile/UploadFile";
 import AdminAppPage from "../views/AdminAppPage/AdminAppPage";
 import PageLoading from "../components/PageLoading";
 import Login from "../views/Login/Login";
+import ParticipantList from "../views/ParticipantList/ParticipantList";
 
-import { callApi } from "../utils/index";
-import { login } from "../actions/auth";
-
-class Full extends Component {
+class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -21,7 +19,8 @@ class Full extends Component {
   }
 
   render() {
-    return (
+    const { authenticated } = this.state;
+    return authenticated ? (
       <Switch>
         <Route
           path="/auth/adminAppPage"
@@ -30,7 +29,7 @@ class Full extends Component {
         />
         <Route path="/auth/login" name="Login Page" component={Login} />
         <Route
-          path="/auth/register-menu"
+          path="/auth/register"
           name="Register Menu"
           component={RegisterPage}
         />
@@ -39,7 +38,16 @@ class Full extends Component {
           name="Upload File"
           component={UploadPage}
         />
+        <Route
+          path="/auth/participantList"
+          name="Participant List"
+          component={ParticipantList}
+        />
         <Redirect from="/auth" to="/adminAppPage" />
+      </Switch>
+    ) : (
+      <Switch>
+        <Redirect from="/auth" to="/login" />
       </Switch>
     );
   }
@@ -52,4 +60,4 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps)(Full);
+export default connect(mapStateToProps)(App);

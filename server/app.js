@@ -19,6 +19,8 @@ app.use(
   })
 );
 
+app.use('/public', express.static(path.join(__dirname, 'public')))
+
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
@@ -27,7 +29,7 @@ app.use(function(req, res, next) {
 
 app.use(
   cors({
-    origin: "http://192.168.0.101:3000",
+    origin: "http://192.168.0.104:3000",
     credentials: true
   })
 );

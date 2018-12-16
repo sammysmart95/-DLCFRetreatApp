@@ -415,7 +415,7 @@ class RegisterPage extends Component {
                   </Row>
                 </CardBody>
                 <div className="submit-button">
-                  <Button color="info" outline block onClick={this.submit}>
+                  <Button outline block onClick={this.submit}>
                     {" "}
                     Register{" "}
                   </Button>

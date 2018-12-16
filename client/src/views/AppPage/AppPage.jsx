@@ -7,7 +7,7 @@ const MainMenu = [
   {
     id: "0001",
     name: "Register",
-    route: "/register-menu",
+    route: "/register",
     icon: "icon-edit"
   },
   {
