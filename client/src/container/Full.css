@@ -1,6 +1,10 @@
 .App {
   text-align: center;
-  background-color: #54688f;
+  /* background-color: #54688f; */
+  background-image: url('../assets/imgs/background.png');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -11,6 +15,5 @@
 main {
   height: 100vh;
   width: 100%;
-  background-color: #54688f;
   padding-top: 50px;
 }

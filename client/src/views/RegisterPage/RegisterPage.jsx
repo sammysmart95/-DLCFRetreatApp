@@ -26,6 +26,7 @@ class RegisterPage extends Component {
         course: "",
         ageGroup: "",
         group: "",
+        whatsAppNumber: "",
       },
       success: false
     };
@@ -116,7 +117,8 @@ class RegisterPage extends Component {
       institution,
       course,
       group,
-      status
+      status,
+      whatsAppNumber
     } = this.state.inputs;
     return (
       <div className="body-page-container">
@@ -254,6 +256,21 @@ class RegisterPage extends Component {
                           onChange={this.handleInputChange}
                         />
                         <span className="label">Phone Number</span>
+                        <span className="border" />
+                      </label>
+                    </Col>
+                    <Col md={6}>
+                      <label htmlFor="whatsAppNumber" className="inp">
+                        <input
+                          type="text"
+                          id="whatsAppNumber"
+                          placeholder="&nbsp;"
+                          className="styled-input"
+                          name="whatsAppNumber"
+                          value={whatsAppNumber}
+                          onChange={this.handleInputChange}
+                        />
+                        <span className="label">Whatsapp Number</span>
                         <span className="border" />
                       </label>
                     </Col>

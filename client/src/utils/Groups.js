@@ -1,4 +1,7 @@
 export default [
+  { id: "16-DLCF", name: "Corpers District" },
+  { id: "17-DLCF", name: "Wollex" },
+  { id: "18-DLCF", name: "City College" },
   { id: "0-DLCF", name: "Abundant" },
   { id: "1-DLCF", name: "Agape" },
   { id: "2-DLCF", name: "Calvary" },
@@ -14,5 +17,5 @@ export default [
   { id: "12-DLCF", name: "Purity" },
   { id: "13-DLCF", name: "Unity" },
   { id: "14-DLCF", name: "Winner" },
-  { id: "15-DLCF", name: "Others" }
+  { id: "15-DLCF", name: "Others" },
 ];

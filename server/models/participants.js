@@ -20,6 +20,12 @@ const participantsSchema = new Schema({
     index: true,
     unique: true
   },
+  whatsAppNumber: {
+    type: Schema.Types.String,
+    required: true,
+    index: true,
+    unique: true
+  },
   gender: {
     type: Schema.Types.String,
     required: true

@@ -16,5 +16,8 @@ code {
 
 .body-page-container {
   border: none !important;
-  background-color: #54688f !important ;
+  background-image: url('./assets/imgs/background.png');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }

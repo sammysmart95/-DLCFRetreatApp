@@ -1,6 +1,8 @@
 .page-container {
   border: none !important;
-  background-color: #54688f !important ;
+  background-image: url('../../assets/imgs/background.png');
+  background-position: center;
+  background-repeat: no-repeat;
   min-height: 100vmax;
   padding: 10px;
 }
