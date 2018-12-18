@@ -11,7 +11,6 @@ import Login from '../views/Login/Login'
 import AppPage from '../views/AppPage/AppPage'
 import Register from '../views/Register/Register'
 import RegisterPage from '../views/RegisterPage/RegisterPage'
-import UploadPage from '../views/UploadFile/UploadFile'
 import DownloadPage from '../views/Downloads/Downloads'
 import Feedback from '../views/Feedback/Feedback'
 import AuthContainer from './Auth.jsx'
@@ -52,7 +51,6 @@ class Full extends Component {
         {backDrop}
         <main>
         <Switch>
-          <Route path='/admin-register' name="Login Page" component={Register} />
           <Route path='/login' name="Login Page" component={Login} />
           <Route path='/app' name='App Page' component={AppPage} />
           <Route path='/downloads' name='Upload File' component={DownloadPage} />
@@ -60,6 +58,7 @@ class Full extends Component {
           <Route path='/welcome' name="Welcome Page" component={WelcomePage} />
           <Route path='/auth' name="Admin Page" component={AuthContainer} />
           <Route path='/feedback' name="Feedback Page" component={Feedback} />
+          <Route path='/admin-register' name="Admin Register Page" component={Register} />
           <Redirect from="/" to="/welcome" />
         </Switch>
         </main>

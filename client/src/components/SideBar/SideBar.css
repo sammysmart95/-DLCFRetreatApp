@@ -26,17 +26,20 @@
 
 .sidebar li {
   margin: 0.5rem 0;
+  text-align: left;
+  background-color: #e4e8f0;
+  padding: 10px;
 }
 
 .sidebar a {
   text-decoration: none;
-  color: whitesmoke;
+  color: #54688f;
   font-size: 1.2rem
 }
 
 .sidebar a:hover,
 .sidebar a:active {
-  color: wheat
+  color: rgb(58, 62, 97)
 }
 
 @media (min-width: 769px) {

@@ -7,6 +7,9 @@ import { PersistGate } from "redux-persist/lib/integration/react";
 import Full from "./container/Full";
 import Alert from './components/Alert'
 
+// Body Style
+import "./App.css"
+
 // Bootstrap
 import "bootstrap/dist/css/bootstrap.min.css";
 

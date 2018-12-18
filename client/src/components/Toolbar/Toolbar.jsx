@@ -9,7 +9,7 @@ const toolbar = props => (
     <nav className='toolbar-nav' >
       <div className='toolbar-toggle-button' > <SideBarToggleButton click={props.drawerClickHandler} /> </div>
       <div className='toolbar-logo' >
-        <a href="/">Hope 2018</a>
+        <Link to="/">HOPE 2018</Link>
       </div>
       <div className="spacer"></div>
       <div className='toolbar-menu-items' >

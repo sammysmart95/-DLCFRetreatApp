@@ -7,11 +7,10 @@
   position: fixed;
   border-bottom: 5px solid #54688f;
   z-index: 2;
+  font-family: 'Rancho', cursive, 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif
 }
 
 .body-container {
-  background-color: #54688f;
-  min-height: 100vh;
   padding: 5px;
   padding-top: 55px
 }

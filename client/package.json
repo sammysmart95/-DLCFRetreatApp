@@ -21,12 +21,12 @@
     "whatwg-fetch": "^3.0.0"
   },
   "scripts": {
-    "start": "HOST=192.168.0.104 react-scripts start",
+    "start": "HOST=192.168.0.100 react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
-  "proxy": "http://192.168.0.104:5000/",
+  "proxy": "http://192.168.0.100:5000/",
   "eslintConfig": {
     "extends": "react-app"
   },

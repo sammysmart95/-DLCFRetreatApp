@@ -41,38 +41,37 @@ class WelcomePage extends Component {
   render() {
     return (
       <div className="App">
-        <header className="App-header">
+        <div className="App-body">
           <img src={logo} className="App-logo" alt="logo" />
           <h2>
             Welcome to {config.programName}, {config.year}
           </h2>
           <h4>(Campus Section)</h4>
-          <div className="footer-button">
-            <Row>
-              <Col md={3} />
-              <Col md={3}>
-                <Link to="/app">
-                  <Button fullWidth color={Theme.BaseGreen}>
-                    Go To App
-                  </Button>
-                </Link>
-              </Col>
-              <Col md={3}>
-                <Link
-                  to={
-                    this.state.authenticated
-                      ? "/auth/adminAppPage"
-                      : "/auth/login"
-                  }
-                >
-                  <Button fullWidth color={Theme.BaseRed}>
-                    {!this.state.authenticated ? "Admin Login" : "Admin Menu"}
-                  </Button>
-                </Link>
-              </Col>
-            </Row>
-          </div>
-        </header>
+        </div>
+        <div className="footer-button">
+          <Row className="button-container" >
+            <Col md={3}>
+              <Link to="/app">
+                <Button fullWidth color={Theme.BaseGreen}>
+                  Go To App
+                </Button>
+              </Link>
+            </Col>
+            <Col md={3}>
+              <Link
+                to={
+                  !this.state.authenticated
+                    ? "/login"
+                    : "/auth/adminAppPage"
+                }
+              >
+                <Button fullWidth color={Theme.BaseRed}>
+                  {!this.state.authenticated ? "Admin Login" : "Admin Menu"}
+                </Button>
+              </Link>
+            </Col>
+          </Row>
+        </div>
       </div>
     );
   }
@@ -80,7 +79,6 @@ class WelcomePage extends Component {
 const mapStateToProps = state => {
   return {
     authenticated: state.auth.authenticated,
-    user: state.auth.user
   };
 };
 

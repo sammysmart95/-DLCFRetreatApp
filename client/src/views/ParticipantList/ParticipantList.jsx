@@ -33,7 +33,7 @@ class ParticipantLists extends Component {
       page: 1,
       count: 0,
       fetching: true,
-      isFetching: false,
+      isFetching: false
     };
   }
 
@@ -70,9 +70,7 @@ class ParticipantLists extends Component {
       });
   }
 
-  downloadList() {
-    
-  }
+  downloadList() {}
 
   clearSelectedState() {
     this.setState({
@@ -120,7 +118,7 @@ class ParticipantLists extends Component {
 
   render() {
     return (
-      <div className="animated fadeIn">
+      <div className="animated fadeIn body-page-container">
         <Card>
           <CardHeader>
             <InputGroup>
@@ -131,23 +129,21 @@ class ParticipantLists extends Component {
               <InputGroupAddon addonType="append">Search</InputGroupAddon>
             </InputGroup>
           </CardHeader>
-          <CardBody>
-            <Row>
-              <BlockUi blocking={this.state.fetching}>
-                {this.state.participantList.length ? (
-                  <ParticipantList
-                    data={this.state.participantList}
-                    downloadList={() => this.downloadList()}
-                  />
-                ) : (
-                  <CardBody> Ooops, No Results Found... </CardBody>
-                )}
-              </BlockUi>
-            </Row>
-          </CardBody>
-          <CardFooter>
-            Showing {this.state.participantList.length} of {this.state.count}
-          </CardFooter>
+            <CardBody>
+                <BlockUi blocking={this.state.fetching}>
+                  {this.state.participantList.length ? (
+                    <ParticipantList
+                      data={this.state.participantList}
+                      downloadList={() => this.downloadList()}
+                    />
+                  ) : (
+                    <CardBody> Ooops, No Results Found... </CardBody>
+                  )}
+                </BlockUi>
+            </CardBody>
+            <CardFooter>
+              Showing {this.state.participantList.length} of {this.state.count}
+            </CardFooter>
         </Card>
       </div>
     );

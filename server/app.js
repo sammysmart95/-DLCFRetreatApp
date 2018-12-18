@@ -29,7 +29,7 @@ app.use(function(req, res, next) {
 
 app.use(
   cors({
-    origin: "http://192.168.0.104:3000",
+    origin: "http://192.168.0.100:3000",
     credentials: true
   })
 );
