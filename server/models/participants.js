@@ -8,7 +8,8 @@ const participantSchema = new Schema({
     type: Schema.Types.String,
     required: true,
     default: uuid,
-    unique: true
+    unique: true,
+    index: true,
   },
   fullName: {
     type: Schema.Types.String,
@@ -17,14 +18,10 @@ const participantSchema = new Schema({
   phoneNumber: {
     type: Schema.Types.String,
     required: true,
-    index: true,
-    // unique: true
+    unique: true
   },
   whatsAppNumber: {
     type: Schema.Types.String,
-    // required: true,
-    index: true,
-    // unique: true
   },
   gender: {
     type: Schema.Types.String,
@@ -69,4 +66,9 @@ const participantSchema = new Schema({
   }
 });
 
-export default mongoose.model("Participant", participantSchema);
+
+const Participant = mongoose.model("Participant", participantSchema);
+
+Participant.syncIndexes()
+
+export default Participant

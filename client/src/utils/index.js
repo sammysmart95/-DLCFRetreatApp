@@ -23,7 +23,6 @@ export const callApi = (url, data, method) => {
       })
       .then(data => resolve(data))
       .catch(err => {
-        console.log(err)
         reject(err);
       });
   });
@@ -51,9 +50,7 @@ export const callCustomApi = (url, data, method) => {
         reject(new Error(res.statusText));
       })
       .then(data => resolve(data))
-      .catch(err => {
-        reject(err);
-      });
+      .catch(err => reject(err));
   });
 };
 
@@ -108,7 +105,7 @@ export const downloadFile = (url, fileName) => {
         document.body.appendChild(a); // we need to append the element to the dom -> otherwise it will not work in firefox
         a.click();
         a.remove();
-        resolve('downloaded')
+        resolve("downloaded");
       })
       .catch(err => {
         console.log(err);

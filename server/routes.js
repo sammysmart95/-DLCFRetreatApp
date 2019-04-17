@@ -9,14 +9,13 @@ import "./config/passport"
 const api = Router();
 const router = Router();
 
-
-// Auth
-router.post('/auth/register', CreateUser)
-router.post('/auth/login', Login)
-
 router.use("/api", api);
 
 api.get("/me",  AuthMe);
+
+// Auth
+api.post('/auth/register', CreateUser)
+api.post('/auth/login', Login)
 
 // Get
 api.get('/getFiles', GetFiles)

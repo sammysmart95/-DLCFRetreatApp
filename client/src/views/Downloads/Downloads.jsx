@@ -71,7 +71,7 @@ class DownloadsPage extends Component {
                           <td>{downloadFile.fileName}</td>
                           <td>
                             <a
-                              href={`/server${
+                              href={`/server/${
                                 downloadFile.filePath
                               }`}
                             >

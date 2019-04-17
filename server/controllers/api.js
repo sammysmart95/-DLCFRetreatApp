@@ -4,27 +4,27 @@ import mime from "mime";
 import fs from "fs";
 
 import Participant from "../models/participants";
-import Feedbacks from '../models/feedback'
+import Feedbacks from "../models/feedback";
 import FileCollection from "../models/files";
-import Testimonies from "../models/testimonies"
+import Testimonies from "../models/testimonies";
 
 export const CreateParticipant = (req, res) => {
-  let email = req.body.email
-  if (!email) {
-    email = Math.random()
-  }
-  Participant.create({...req.body, email})
+  Participant.create({ ...req.body })
     .then(data => {
       return res.json({
         message: `Congrats ${req.body.fullName || ""}`
       });
     })
     .catch(err => {
-      console.log(err)
-      return res.status(500).json({
+      console.log(err.message);
+      const errorMessage =
+        err.message && err.message.includes("phoneNumber")
+          ? "Phone number is already registered"
+          : "Some Error Occured";
+      return res.status(400).json({
         err: err,
         message: err.message,
-        customMessage: "Error Registering Participant"
+        customMessage: errorMessage
       });
     });
 };
@@ -64,7 +64,7 @@ export const DownloadFile = (req, res) => {
       // res.sendFile(file);
     })
     .catch(err => {
-      console.log(err)
+      console.log(err);
       res.status(500).json({
         message: "Error fetching files",
         err: err.message
@@ -85,7 +85,6 @@ export const AuthMe = (req, res) => {
     authenticated: false
   });
 };
-
 
 export const GetParticipants = async (req, res) => {
   let page = parseInt(Number(req.params.id));
@@ -233,7 +232,7 @@ export const GetTestimonies = async (req, res) => {
         },
         {
           category: search
-        },
+        }
       ]
     };
   }
@@ -261,7 +260,6 @@ export const GetTestimonies = async (req, res) => {
   }
 };
 
-
 export const CreateFeedback = (req, res) => {
   Feedbacks.create(req.body)
     .then(data => {
@@ -270,14 +268,14 @@ export const CreateFeedback = (req, res) => {
       });
     })
     .catch(err => {
-      console.log(err)
+      console.log(err);
       return res.status(500).json({
         err: err,
         message: err.message,
         customMessage: "Error Creating Feedback"
       });
-    }); 
-}
+    });
+};
 
 export const CreateTestimony = (req, res) => {
   Testimonies.create(req.body)
@@ -287,11 +285,11 @@ export const CreateTestimony = (req, res) => {
       });
     })
     .catch(err => {
-      console.log(err)
+      console.log(err);
       return res.status(500).json({
         err: err,
         message: err.message,
         customMessage: "Error Creating Feedback"
       });
-    }); 
-}
+    });
+};

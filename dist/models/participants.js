@@ -21,7 +21,8 @@ var participantSchema = new Schema({
     type: Schema.Types.String,
     required: true,
     default: _v2.default,
-    unique: true
+    unique: true,
+    index: true
   },
   fullName: {
     type: Schema.Types.String,
@@ -30,14 +31,10 @@ var participantSchema = new Schema({
   phoneNumber: {
     type: Schema.Types.String,
     required: true,
-    index: true
-    // unique: true
+    unique: true
   },
   whatsAppNumber: {
-    type: Schema.Types.String,
-    // required: true,
-    index: true
-    // unique: true
+    type: Schema.Types.String
   },
   gender: {
     type: Schema.Types.String,
@@ -82,4 +79,8 @@ var participantSchema = new Schema({
   }
 });
 
-exports.default = _mongoose2.default.model("Participant", participantSchema);
+var Participant = _mongoose2.default.model("Participant", participantSchema);
+
+Participant.syncIndexes();
+
+exports.default = Participant;

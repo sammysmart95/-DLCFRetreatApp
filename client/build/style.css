@@ -16,7 +16,7 @@ code {
 
 .body-page-container {
   border: none !important;
-  background-image: url(./img/background.acf062241461892a0031ff49c16b7ae5.png);
+  background-image: url(./img/background.d11a9512aa29cedbaf7ed3a9b485191d.png);
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -25,10 +25,11 @@ code {
   position: fixed;
   top: 0;
   left: 0;
-  background-image: url(./img/background.acf062241461892a0031ff49c16b7ae5.png);
+  /* background-image: url('../../assets/imgs/background.png');
   background-position: center;
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size: cover; */
+  background-color: #037734;
   height: 56px;
   z-index: 5;
   /* box-shadow: 10px 5px 5px rgba(112, 98, 51, 0.5); */
@@ -112,7 +113,7 @@ code {
   height: 2px;
   background: white;
 }.sidebar {
-  background-image: url(./img/background.acf062241461892a0031ff49c16b7ae5.png);
+  background-image: url(./img/background.d11a9512aa29cedbaf7ed3a9b485191d.png);
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -218,6 +219,11 @@ code {
   width: 250px;
   padding: 20px;
   background-color: rgb(212, 218, 230)
+}.register-page-container {
+  border: none !important;
+  background-color: #54688f !important ;
+  min-height: 100vmax;
+  padding: 10px;
 }.app-page-container {
   border: none !important;
   background-color: #54688f !important ;
@@ -457,7 +463,7 @@ code {
   padding: 0px 30px;
 }.page-container {
   border: none !important;
-  background-image: url(./img/background.acf062241461892a0031ff49c16b7ae5.png);
+  background-image: url(./img/background.d11a9512aa29cedbaf7ed3a9b485191d.png);
   background-position: center;
   background-repeat: no-repeat;
   min-height: 100vmax;
@@ -497,7 +503,7 @@ td:nth-child(3) {
   background-color: rgb(212, 218, 230)
 }.app-page-container {
   border: none !important;
-  background-image: url(./img/background.acf062241461892a0031ff49c16b7ae5.png);
+  background-image: url(./img/background.d11a9512aa29cedbaf7ed3a9b485191d.png);
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -529,7 +535,7 @@ td:nth-child(3) {
 .App {
   text-align: center;
   /* background-color: #54688f; */
-  background-image: url(./img/background.acf062241461892a0031ff49c16b7ae5.png);
+  background-image: url(./img/background.d11a9512aa29cedbaf7ed3a9b485191d.png);
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;

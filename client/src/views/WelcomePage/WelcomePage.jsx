@@ -44,7 +44,10 @@ class WelcomePage extends Component {
         <div className="App-body">
           <img src={logo} className="App-logo" alt="logo" />
           <h2>
-            Welcome to {config.programName}, {config.year}
+            Welcome to
+          </h2>
+          <h2>
+            {config.programName}, {config.year}
           </h2>
           <h4>(Campus Section)</h4>
         </div>

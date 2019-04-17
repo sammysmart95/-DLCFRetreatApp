@@ -29,13 +29,13 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var api = (0, _express.Router)();
 var router = (0, _express.Router)();
 
-// Auth
-router.post('/auth/register', _auth.CreateUser);
-router.post('/auth/login', _auth.Login);
-
 router.use("/api", api);
 
 api.get("/me", _api.AuthMe);
+
+// Auth
+api.post('/auth/register', _auth.CreateUser);
+api.post('/auth/login', _auth.Login);
 
 // Get
 api.get('/getFiles', _api.GetFiles);

@@ -8,7 +8,7 @@ import BackDrop from '../components/BackDrop/BackDrop.jsx'
 
 import WelcomePage from '../views/WelcomePage/WelcomePage.jsx'
 import Login from '../views/Login/Login.jsx'
-// import Register from '../views/Register/Register.jsx'
+import Register from '../views/Register/Register.jsx'
 import AppPage from '../views/AppPage/AppPage.jsx'
 import RegisterPage from '../views/RegisterPage/RegisterPage.jsx'
 import DownloadPage from '../views/Downloads/Downloads.jsx'
@@ -60,7 +60,7 @@ class Full extends Component {
           <Route path='/auth' name="Admin Page" component={AuthContainer} />
           <Route path='/feedback' name="Feedback Page" component={Feedback} />
           <Route path='/testimonies' name="Feedback Page" component={Testimonies} />
-          {/* <Route path='/admin-register' name="Admin Register Page" component={Register} /> */}
+          <Route path='/admin-register' name="Admin Register Page" component={Register} />
           <Redirect from="/" to="/welcome" />
         </Switch>
         </main>

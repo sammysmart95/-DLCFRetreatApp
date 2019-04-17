@@ -46,20 +46,17 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
 var CreateParticipant = exports.CreateParticipant = function CreateParticipant(req, res) {
-  var email = req.body.email;
-  if (!email) {
-    email = Math.random();
-  }
-  _participants2.default.create(_extends({}, req.body, { email: email })).then(function (data) {
+  _participants2.default.create(_extends({}, req.body)).then(function (data) {
     return res.json({
       message: "Congrats " + (req.body.fullName || "")
     });
   }).catch(function (err) {
-    console.log(err);
-    return res.status(500).json({
+    console.log(err.message);
+    var errorMessage = err.message && err.message.includes("phoneNumber") ? "Phone number is already registered" : "Some Error Occured";
+    return res.status(400).json({
       err: err,
       message: err.message,
-      customMessage: "Error Registering Participant"
+      customMessage: errorMessage
     });
   });
 };

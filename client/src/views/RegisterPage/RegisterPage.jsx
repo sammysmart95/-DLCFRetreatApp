@@ -4,8 +4,8 @@ import { showError, showInfo } from "../../actions/feedback";
 import { connect } from "react-redux";
 import BlockUI from "react-block-ui";
 import { callApi } from "../../utils";
-import { Link } from 'react-router-dom'
-import Groups from '../../utils/Groups'
+import { Link } from "react-router-dom";
+import Groups from "../../utils/Groups";
 import "./RegisterPage.css";
 
 class RegisterPage extends Component {
@@ -26,13 +26,14 @@ class RegisterPage extends Component {
         course: "",
         ageGroup: "",
         group: "",
-        whatsAppNumber: "",
+        whatsAppNumber: ""
       },
       success: false
     };
   }
 
-  submit = () => {
+  submit = event => {
+    event.preventDefault();
     const {
       fullName,
       gender,
@@ -42,8 +43,7 @@ class RegisterPage extends Component {
       denomination,
       category,
       ageGroup,
-      group,
-      whatsAppNumber
+      group
     } = this.state.inputs;
 
     if (!fullName) {
@@ -64,13 +64,10 @@ class RegisterPage extends Component {
     if (!category || !status) {
       return this.props.dispatch(showError("Select a category"));
     }
-    if (status === 'member') {
+    if (status === "member") {
       if (!group) {
         return this.props.dispatch(showError("Select a group"));
       }
-    }
-    if (!whatsAppNumber) {
-      return this.props.dispatch(showError("Provide WhatsApp number"));
     }
     if (!ageGroup) {
       return this.props.dispatch(showError("Select age group"));
@@ -88,12 +85,12 @@ class RegisterPage extends Component {
         });
       })
       .catch(err => {
+        console.log(err);
+        console.log(err.status);
         this.setState({
           blocking: false
         });
-        this.props.dispatch(
-          showError("Please check your form and submit again")
-        );
+        this.props.dispatch(showError("User already registered"));
       });
   };
 
@@ -306,19 +303,35 @@ class RegisterPage extends Component {
                         </label>
                       </div>
                     </Col>
-                    { status === 'member' && <Col md={6}>
-                      <Row>
-                        <Col xs={5}>
-                          <label className="select-title" htmlFor='group' > Group: </label>
-                        </Col>
-                        <Col xs={7}>
-                          <select name="group" id="group" value={group} onChange={this.handleInputChange} className='styled-input' >
-                          <option value="">Select Group</option>
-                          {Groups.map(group => <option value={group.name} key={group.id} > {group.name} </option> )}
-                          </select>
-                        </Col>
-                      </Row>
-                    </Col>}
+                    {status === "member" && (
+                      <Col md={6}>
+                        <Row>
+                          <Col xs={5}>
+                            <label className="select-title" htmlFor="group">
+                              {" "}
+                              Group:{" "}
+                            </label>
+                          </Col>
+                          <Col xs={7}>
+                            <select
+                              name="group"
+                              id="group"
+                              value={group}
+                              onChange={this.handleInputChange}
+                              className="styled-input"
+                            >
+                              <option value="">Select Group</option>
+                              {Groups.map(group => (
+                                <option value={group.name} key={group.id}>
+                                  {" "}
+                                  {group.name}{" "}
+                                </option>
+                              ))}
+                            </select>
+                          </Col>
+                        </Row>
+                      </Col>
+                    )}
                     <Col md={6}>
                       <label htmlFor="email" className="inp">
                         <input
@@ -446,17 +459,17 @@ class RegisterPage extends Component {
               <Card>
                 <CardBody>
                   <h3 style={{ textAlign: "center" }}>
-                    Thanks for Registering <strong>{fullName}.</strong> Please show
-                    this to any of the Registration Officials to collect your
-                    programme sheet.
+                    Thanks for Registering <strong>{fullName}.</strong> Please
+                    show this to any of the Registration Officials to collect
+                    your programme sheet.
                   </h3>
                   <div className="submit-button">
-                  <Link to='/app' >
-                    <Button color="success" outline block>
-                      {" "}
-                      Continue{" "}
-                    </Button>
-                  </Link>
+                    <Link to="/app">
+                      <Button color="success" outline block>
+                        {" "}
+                        Continue{" "}
+                      </Button>
+                    </Link>
                   </div>
                 </CardBody>
               </Card>
