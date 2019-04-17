@@ -11,11 +11,23 @@ const MainMenu = [
     icon: "icon-edit"
   },
   {
+    id: "003",
+    name: "Feedback",
+    route: "/feedback",
+    icon: "icon-edit"
+  },
+  {
+    id: "004",
+    name: "Submit Testimonies",
+    route: "/testimonies",
+    icon: "icon-edit"
+  },
+  {
     id: "0002",
     name: "Downloads",
     route: "/downloads",
     icon: "icon-download-1"
-  }
+  },
 ];
 
 class AppPage extends Component {

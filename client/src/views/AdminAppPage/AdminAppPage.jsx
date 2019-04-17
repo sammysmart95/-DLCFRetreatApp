@@ -16,6 +16,22 @@ const MainMenu = [
     name: "Upload File",
     route: "/auth/uploadFile",
     icon: "icon-download-1"
+  },
+  {
+    id: '003',
+    name: 'Participants',
+    route: '/auth/participantList',
+    icon: 'icon-list'
+  }, {
+    id: '004',
+    name: "Feedbacks",
+    route: "/auth/feedbackList",
+    icon: 'icon-list'
+  }, {
+    id: '005',
+    name: "Testimonies",
+    route: "/auth/testimonyList",
+    icon: 'icon-list'
   }
 ];
 

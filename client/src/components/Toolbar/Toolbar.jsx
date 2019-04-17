@@ -1,6 +1,6 @@
 import React from 'react'
 import './Toolbar.css'
-import SideBarToggleButton from  '../SideBar/SideBarToggleButton'
+import SideBarToggleButton from  '../SideBar/SideBarToggleButton.jsx'
 import nav from '../SideBar/_nav'
 import { Link } from 'react-router-dom'
 

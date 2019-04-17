@@ -1,7 +1,5 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import { startLogin } from "../../actions/auth";
 import { showError, showInfo } from "../../actions/feedback";
 import { fileUpload } from "../../utils/index";
 import "./UploadFile.css";
@@ -14,8 +12,6 @@ import {
   Col,
   Input,
   InputGroup,
-  InputGroupAddon,
-  InputGroupText,
   Row,
   Form,
   Label,

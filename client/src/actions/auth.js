@@ -16,7 +16,7 @@ export const logout = () => {
   return dispatch => {
     localStorage.clear();
     history.push("/login");
-    callCustomApi("auth/logout")
+    callCustomApi("/auth/logout")
       .then(data => {
         return { type: LOGOUT };
       })
@@ -30,7 +30,7 @@ export const startRegister = formData => {
   return dispatch => {
     console.log("Starting register");
     dispatch(startLoading());
-    callCustomApi("auth/register", formData, "POST")
+    callCustomApi("/auth/register", formData, "POST")
       .then(data => {
         dispatch(stopLoading());
         dispatch(showInfo("Registration Successful!"));
@@ -48,16 +48,15 @@ export const startRegister = formData => {
 export const startLogin = formData => {
   return dispatch => {
     dispatch(startLoading());
-    callCustomApi("auth/login", formData, "POST")
+    callCustomApi("/auth/login", formData, "POST")
       .then(data => {
         dispatch(stopLoading());
         dispatch(login(data.user));
         history.push("/auth/adminAppPage");
       })
       .catch(err => {
-        console.log(err);
         dispatch(stopLoading());
-        dispatch(showError("Invalid Username or Password"));
+        dispatch(showError("Stop trying to log in... Pray!!!"));
         console.log(err);
       });
   };

@@ -4,7 +4,10 @@
   "description": "DLCF Retreat App",
   "main": "server/index.js",
   "scripts": {
-    "dev": "concurrently \"nodemon server/index.js --exec babel-node\" \"cd client && yarn start\"",
+    "start": "node dist/index.js",
+    "dev": "concurrently \"nodemon --exec babel-node server/index.js\" \"cd client && npm run dev\"",
+    "build": "babel server -d dist",
+    "server": "nodemon --exec babel-node server/index.js",
     "test": "test"
   },
   "keywords": [
@@ -13,6 +16,13 @@
   ],
   "author": "Balanced02",
   "license": "MIT",
+  "devDependencies": {
+    "@babel/cli": "^7.4.3",
+    "@babel/core": "^7.4.3",
+    "@babel/node": "^7.2.2",
+    "@babel/preset-env": "^7.4.3",
+    "nodemon": "^1.18.10"
+  },
   "dependencies": {
     "babel-cli": "^6.26.0",
     "babel-preset-env": "^1.7.0",
@@ -24,8 +34,10 @@
     "express": "^4.16.4",
     "express-fileupload": "^1.0.0",
     "express-jwt": "^5.3.1",
+    "json2xls": "^0.1.2",
     "jsonwebtoken": "^8.4.0",
     "mime": "^2.4.0",
+    "moment": "^2.23.0",
     "mongoose": "^5.3.15",
     "morgan": "^1.9.1",
     "multer": "^1.4.1",

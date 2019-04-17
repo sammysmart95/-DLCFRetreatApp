@@ -55,17 +55,17 @@ export const Login = (req, res) => {
     { session: false },
     (err, passportUser, info) => {
       if (err) {
-        console.log(err)
       }
-
       if (passportUser) {
         const user = passportUser;
         user.token = passportUser.generateJWT();
 
         return res.json({ user: user.toAuthJSON() });
-      }
+      } 
+        return res.status(401).json({
+          message: 'Invalid credentials'
+        });
 
-      return status(400).info;
     }
   )(req, res);
 };

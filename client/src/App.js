@@ -4,7 +4,7 @@ import { createBrowserHistory } from "history";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/lib/integration/react";
 
-import Full from "./container/Full";
+import Full from "./container/Full.jsx";
 import Alert from './components/Alert'
 
 // Body Style

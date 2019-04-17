@@ -1,0 +1,11 @@
+{
+  "fonts/fontello.eot?91693163": "./fonts/fontello.97815f7ea9bfcdda8ac181e710c68600.eot",
+  "fonts/fontello.svg?91693163": "./fonts/fontello.39a7485b66fce835ab8f1bb89601a1a6.svg",
+  "fonts/fontello.ttf?91693163": "./fonts/fontello.d77a2135a78276c4b1b4522b584366b1.ttf",
+  "fonts/fontello.woff2?91693163": "./fonts/fontello.89cb685007c6aa25b0fcd1f69f8146fb.woff2",
+  "fonts/fontello.woff?91693163": "./fonts/fontello.59405ba15e4c14f04a6fc74067826f69.woff",
+  "img/background.png": "./img/background.acf062241461892a0031ff49c16b7ae5.png",
+  "img/logo.png": "./img/logo.31131d77a233264095578ba073dd0616.png",
+  "index.css": "style.css",
+  "index.js": "index.bundle.js"
+}

@@ -7,24 +7,84 @@ import { callApi } from "../../utils";
 import { Link } from 'react-router-dom'
 import "./Feedback.css";
 
+const TransportOptions = [
+  {
+    id: '001',
+    name: 'Church Vehicle',
+  }, {
+    id: '002',
+    name: 'Public Transport',
+  }, {
+    id: '003',
+    name: 'Personal Vehicle',
+  }, {
+    id: '004',
+    name: 'Others'
+  }
+]
+
+const messageList = [{ id: 'message-0', name: 'Hope for dry bones' },
+{ id: 'message-1', name: 'Fear not: The Promise is still good' },
+{ id: 'message-2', name: 'The lively hope of true believers' },
+{
+  id: 'message-3',
+  name: 'Unshakable assurance of the hope of glory'
+},
+{ id: 'message-4', name: 'Bible doctrines 1 - 7' },
+{ id: 'message-5', name: 'Christianity of Egoism' },
+{ id: 'message-6', name: 'Singing with praise' },
+{
+  id: 'message-7',
+  name: 'Daniel: conviction without compromise'
+},
+{ id: 'message-8', name: 'Advancing through adversity' },
+// { id: 'message-9', name: 'Fear not: Douby delays deliverance' },
+{ id: 'message-10', name: 'Self-denial and true discipleship' },
+{
+  id: 'message-11',
+  name: 'The higher way of the heavenly calling'
+},
+{ id: 'message-12', name: 'Bible doctrines 8 - 14' },
+{ id: 'message-13', name: 'Will a man rob God?' },
+{ id: 'message-14', name: 'Supplication with gratitude' },
+{ id: 'message-15', name: 'Enoch: Holy and hopeful of heaven' },
+{ id: 'message-16', name: 'Tarrying and travailing of Peniel' },
+// { id: 'message-17', name: 'Fear not: Keep your eyes on Jesus' },
+{ id: 'message-18', name: 'Serving God with the whole family' },
+// {
+//   id: 'message-19',
+//   name: 'The futility of hope without holiness'
+// },
+// { id: 'message-20', name: 'Bible Doctrines 15 - 22' },
+// { id: 'message-21', name: 'Service without cost?' },
+// { id: 'message-22', name: 'Scriptures for Growth' },
+// {
+//   id: 'message-23',
+//   name: 'Paul: Selfless love for a drifting generation'
+// },
+// {
+//   id: 'message-24',
+//   name: 'Pure Faith, precious hope and pre-eminent love'
+// },
+// {
+//   id: 'message-25',
+//   name: 'Fear not: Run the race to reach the goal'
+// }
+]
+
 class Feedback extends Component {
   constructor() {
     super();
     this.state = {
       blocking: false,
       inputs: {
-        fullName: "",
-        gender: "",
-        address: "",
         phoneNumber: "",
-        email: "",
-        status: "",
-        denomination: "",
+        message: "",
+        transport: "",
+        like: "",
+        improvements: "",
+        experience: "",
         category: "",
-        institution: "",
-        course: "",
-        ageGroup: "",
-        group: "",
       },
       success: false
     };
@@ -32,63 +92,25 @@ class Feedback extends Component {
 
   submit = () => {
     const {
-      fullName,
-      gender,
-      address,
-      phoneNumber,
-      status,
-      denomination,
-      category,
-      ageGroup,
-      group,
+      phoneNumber, message, transport, like, improvements, experience, category
     } = this.state.inputs;
 
-    if (!fullName) {
-      return this.props.dispatch(showError("Provide a Full Name"));
+    console.log({
+      phoneNumber, message, transport, like, improvements, experience
+    })
+
+    if (!improvements && !message && !transport && !like && !experience) {
+      return this.props.dispatch(showError("Cannot submit empty form"))
     }
-    if (!gender) {
-      return this.props.dispatch(showError("Select gender"));
+    if (!category) {
+      return this.props.dispatch(showError("Please select a category"))
     }
-    if (!address) {
-      return this.props.dispatch(showError("Provide address"));
-    }
-    if (!phoneNumber) {
-      return this.props.dispatch(showError("Provide phone number"));
-    }
-    if (!denomination) {
-      return this.props.dispatch(showError("Provide denomination"));
-    }
-    if (!category || !status) {
-      return this.props.dispatch(showError("Select a category"));
-    }
-    if (status === 'member') {
-      if (!group) {
-        return this.props.dispatch(showError("Select a group"));
-      }
-    }
-    if (!ageGroup) {
-      return this.props.dispatch(showError("Select age group"));
-    }
-    this.setState({
-      ...this.state,
-      blocking: true
-    });
-    callApi("/registerParticipant", this.state.inputs, "POST")
-      .then(data => {
-        this.props.dispatch(showInfo(data.message));
-        this.setState({
-          success: true,
-          blocking: false
-        });
+    callApi('/submitFeedback', this.state.inputs, 'POST').then(data => {
+      this.props.dispatch(showInfo("Submitted"))
+      this.setState({
+        success: true
       })
-      .catch(err => {
-        this.setState({
-          blocking: false
-        });
-        this.props.dispatch(
-          showError("Phone number or email has already been used")
-        );
-      });
+    }).catch(err => this.props.dispatch(showError("Please try again later")))
   };
 
   handleInputChange = e => {
@@ -107,15 +129,7 @@ class Feedback extends Component {
 
   render() {
     const {
-      fullName,
-      address,
-      phoneNumber,
-      email,
-      denomination,
-      institution,
-      course,
-      group,
-      status
+      phoneNumber, message, transport, like, improvements, experience
     } = this.state.inputs;
     return (
       <div className="body-page-container">
@@ -128,10 +142,10 @@ class Feedback extends Component {
               color: "#54688f"
             }}
           >
-            Registration
+            Feedback
           </CardHeader>
         </div>
-        <div className="body-container">
+        <div className="body-container feedback">
           <BlockUI blocking={this.state.blocking}>
             {!this.state.success ? (
               <Card>
@@ -144,42 +158,126 @@ class Feedback extends Component {
                           id="inp"
                           placeholder="&nbsp;"
                           className="styled-input"
-                          name="fullName"
-                          value={fullName}
+                          name="phoneNumber"
+                          value={phoneNumber}
                           onChange={this.handleInputChange}
                         />
-                        <span className="label">Full name:</span>
+                        <span className="label">Phone Number (optional)</span>
                         <span className="border" />
                       </label>
+                    </Col>
+                    <Col md={6}>
+                      <div className="select-div">
+                        <label className="select-container">
+                          {" "}
+                          Member
+                          <input
+                            type="radio"
+                            name="category"
+                            id="member"
+                            value="member"
+                            onChange={this.handleInputChange}
+                          />{" "}
+                          <span className="checkmark" />
+                        </label>
+                        <label className="select-container">
+                          {" "}
+                          Invitee
+                          <input
+                            type="radio"
+                            name="category"
+                            id="invitee"
+                            value="invitee"
+                            onChange={this.handleInputChange}
+                          />{" "}
+                          <span className="checkmark" />
+                        </label>
+                      </div>
+                    </Col>
+                    
+                    <Row>
+                      <Col xs={5}>
+                        <label htmlFor='transport' > How did you get to the camp? </label>
+                      </Col>
+                      <Col xs={7}>
+                        <select name="transport" value={transport} id="transport" onChange={this.handleInputChange} className='styled-input' >
+                          <option value="">Mode of Transport</option>
+                          {TransportOptions.map(transport => <option value={transport.name} key={transport.id} > {transport.name} </option>)}
+                        </select>
+                      </Col>
+                    </Row>
+                    <Col md={6}>
+                      <label htmlFor='message' >Which programme touched you the most?</label>
+                      <select name="message" value={message} id="message" onChange={this.handleInputChange} className='styled-input' >
+                          <option value="">Select message</option>
+                          {messageList.map(message => <option value={message.name} key={message.id} > {message.name} </option>)}
+                        </select>
+                    </Col>
+                    <Col md={6}>
+                      <span className="label">What do you love the most about this camp?</span>
+                      <input
+                        type="text"
+                        id="inp"
+                        placeholder="&nbsp;"
+                        className="styled-input"
+                        name="like"
+                        value={like}
+                        onChange={this.handleInputChange}
+                      />
+                      <span className="border" />
+                    </Col>
+                    <Col md={6}>
+                      <span className="label">What should be improved about this camp?</span>
+                      <input
+                        type="text"
+                        id="inp"
+                        value={improvements}
+                        placeholder="&nbsp;"
+                        className="styled-input"
+                        name="improvements"
+                        onChange={this.handleInputChange}
+                      />
+                      <span className="border" />
+                    </Col>
+                    <Col md={6}>
+                      <span className="label">Please summarize your experience in this camp</span>
+                      <textarea
+                        type="text"
+                        id="inp"
+                        placeholder="&nbsp;"
+                        value={experience}
+                        className="styled-input styled-textarea"
+                        name="experience"
+                        onChange={this.handleInputChange}
+                      />
+                      <span className="border" />
                     </Col>
                   </Row>
                 </CardBody>
                 <div className="submit-button">
                   <Button color="info" outline block onClick={this.submit}>
                     {" "}
-                    Register{" "}
+                    Submit{" "}
                   </Button>
                 </div>
               </Card>
             ) : (
-              <Card>
-                <CardBody>
-                  <h3 style={{ textAlign: "center" }}>
-                    Thanks for Registering <strong>{fullName}.</strong> Please show
-                    this to any of the Registration Officials to collect your
-                    programme sheet.
+                <Card>
+                  <CardBody>
+                    <h3 style={{ textAlign: "center" }}>
+                      Thanks for your feedback. Your spiritual welfare is our utmost concern and priority.
                   </h3>
-                  <div className="submit-button">
-                  <Link to='/app' >
-                    <Button color="success" outline block>
-                      {" "}
-                      Continue{" "}
-                    </Button>
-                  </Link>
-                  </div>
-                </CardBody>
-              </Card>
-            )}
+                    <div className="submit-button">
+                      <Link to='/app' >
+                        <Button color="success" outline block>
+                          {" "}
+                          Continue{" "}
+                        </Button>
+                      </Link>
+                    </div>
+                  </CardBody>
+                </Card>
+              )}
           </BlockUI>
         </div>
       </div>

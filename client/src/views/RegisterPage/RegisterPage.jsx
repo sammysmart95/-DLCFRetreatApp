@@ -43,6 +43,7 @@ class RegisterPage extends Component {
       category,
       ageGroup,
       group,
+      whatsAppNumber
     } = this.state.inputs;
 
     if (!fullName) {
@@ -68,6 +69,9 @@ class RegisterPage extends Component {
         return this.props.dispatch(showError("Select a group"));
       }
     }
+    if (!whatsAppNumber) {
+      return this.props.dispatch(showError("Provide WhatsApp number"));
+    }
     if (!ageGroup) {
       return this.props.dispatch(showError("Select age group"));
     }
@@ -88,7 +92,7 @@ class RegisterPage extends Component {
           blocking: false
         });
         this.props.dispatch(
-          showError("Phone number or email has already been used")
+          showError("Please check your form and submit again")
         );
       });
   };

@@ -1,21 +1,22 @@
 import React, { Component } from "react";
-import { Router, Route, Switch, Redirect } from "react-router-dom";
+import { Route, Switch, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 
-import Toolbar from '../components/Toolbar/Toolbar'
-import Sidebar from '../components/SideBar/SideBar'
-import BackDrop from '../components/BackDrop/BackDrop'
+import Toolbar from '../components/Toolbar/Toolbar.jsx'
+import Sidebar from '../components/SideBar/SideBar.jsx'
+import BackDrop from '../components/BackDrop/BackDrop.jsx'
 
-import WelcomePage from '../views/WelcomePage/WelcomePage'
-import Login from '../views/Login/Login'
-import AppPage from '../views/AppPage/AppPage'
-import Register from '../views/Register/Register'
-import RegisterPage from '../views/RegisterPage/RegisterPage'
-import DownloadPage from '../views/Downloads/Downloads'
-import Feedback from '../views/Feedback/Feedback'
+import WelcomePage from '../views/WelcomePage/WelcomePage.jsx'
+import Login from '../views/Login/Login.jsx'
+// import Register from '../views/Register/Register.jsx'
+import AppPage from '../views/AppPage/AppPage.jsx'
+import RegisterPage from '../views/RegisterPage/RegisterPage.jsx'
+import DownloadPage from '../views/Downloads/Downloads.jsx'
+import Feedback from '../views/Feedback/Feedback.jsx'
 import AuthContainer from './Auth.jsx'
 
 import './Full.css'
+import Testimonies from "../views/Testimonies/Testimonies.jsx";
 
 
 class Full extends Component {
@@ -58,7 +59,8 @@ class Full extends Component {
           <Route path='/welcome' name="Welcome Page" component={WelcomePage} />
           <Route path='/auth' name="Admin Page" component={AuthContainer} />
           <Route path='/feedback' name="Feedback Page" component={Feedback} />
-          <Route path='/admin-register' name="Admin Register Page" component={Register} />
+          <Route path='/testimonies' name="Feedback Page" component={Testimonies} />
+          {/* <Route path='/admin-register' name="Admin Register Page" component={Register} /> */}
           <Redirect from="/" to="/welcome" />
         </Switch>
         </main>

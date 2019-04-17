@@ -1,0 +1,7 @@
+.feedback {
+    font-size: 15px;
+}
+
+.feedback textarea {
+    height: 150px;
+}

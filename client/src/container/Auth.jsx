@@ -1,12 +1,13 @@
 import React, { Component } from "react";
-import { Router, Route, Switch, Redirect } from "react-router-dom";
+import { Route, Switch, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
-import RegisterPage from "../views/RegisterPage/RegisterPage";
-import UploadPage from "../views/UploadFile/UploadFile";
-import AdminAppPage from "../views/AdminAppPage/AdminAppPage";
-import PageLoading from "../components/PageLoading";
-import Login from "../views/Login/Login";
-import ParticipantList from "../views/ParticipantList/ParticipantList";
+import RegisterPage from "../views/RegisterPage/RegisterPage.jsx";
+import UploadPage from "../views/UploadFile/UploadFile.jsx";
+import AdminAppPage from "../views/AdminAppPage/AdminAppPage.jsx";
+import Login from "../views/Login/Login.jsx";
+import ParticipantList from "../views/ParticipantList/ParticipantList.jsx";
+import FeedbackList from "../views/FeedbackList/FeedbackList.jsx"
+import TestimonyList from "../views/TestimonyList/TestimonyList.jsx";
 
 class App extends Component {
   constructor(props) {
@@ -43,11 +44,17 @@ class App extends Component {
           name="Participant List"
           component={ParticipantList}
         />
-        <Redirect from="/auth" to="/adminAppPage" />
+        <Route
+          path="/auth/feedbackList"
+          name="Participant List"
+          component={FeedbackList}
+        />
+        <Route path="/auth/testimonyList" name="Testimony List" component={TestimonyList} />
+        <Redirect from="/auth/" to="/adminAppPage" />
       </Switch>
     ) : (
       <Switch>
-        <Redirect from="/auth" to="/login" />
+        <Redirect from="/auth/" to="/login" />
       </Switch>
     );
   }

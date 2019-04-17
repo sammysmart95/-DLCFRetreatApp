@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { Card, CardHeader, CardBody, Table, Button } from "reactstrap";
 import { connect } from "react-redux";
 import BlockUI from "react-block-ui";
-import { config } from "../../config";
 import { callApi } from "../../utils/index";
 
 import "./Downloads.css";
@@ -72,7 +71,7 @@ class DownloadsPage extends Component {
                           <td>{downloadFile.fileName}</td>
                           <td>
                             <a
-                              href={`${config.serverURL}${
+                              href={`/server${
                                 downloadFile.filePath
                               }`}
                             >

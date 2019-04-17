@@ -1,19 +1,18 @@
 import React, { Component } from "react";
 import {
-  Row,
   Input,
   InputGroup,
   InputGroupAddon,
   Card,
   CardHeader,
   CardBody,
-  CardFooter
+  CardFooter,
 } from "reactstrap";
 import BlockUi from "react-block-ui";
 
 import { connect } from "react-redux";
-import ParticipantList from "../../components/ParticipantTable";
-import { callApi } from "../../utils/index";
+import ParticipantList from "../../components/ParticipantTable.jsx";
+import { callApi, downloadFile } from "../../utils/index";
 import { showError, showInfo } from "../../actions/feedback";
 
 class ParticipantLists extends Component {
@@ -70,7 +69,22 @@ class ParticipantLists extends Component {
       });
   }
 
-  downloadList() {}
+  downloadList() {
+    // this.props.dispatch(showInfo('Download Available by evening'))
+    this.setState({
+      fetching: true,
+    })
+    downloadFile('/downloadParticipantList', 'Participant List.xlsx').then(data => {
+      this.setState({
+        fetching: false,
+      })
+    }).catch(err => {
+      this.props.dispatch(showError('Error downloading'))
+      this.setState({
+        fetching: false,
+      })
+    })
+  }
 
   clearSelectedState() {
     this.setState({
@@ -103,7 +117,8 @@ class ParticipantLists extends Component {
     const { value } = e.target;
     this.setState({
       ...this.state,
-      searchKey: value
+      searchKey: value,
+      page: 1
     });
     this.getParticipants(1, value);
   }
@@ -114,6 +129,16 @@ class ParticipantLists extends Component {
 
   componentWillMount() {
     this.getParticipants(1);
+  }
+
+  paginationChange = (e) => {
+    const page = Number(e.target.id)
+    this.setState({
+      ...this.state,
+      fetching: true,
+      page: page + 1
+    })
+    this.getParticipants(page + 1, this.state.searchKey)
   }
 
   render() {
@@ -129,21 +154,24 @@ class ParticipantLists extends Component {
               <InputGroupAddon addonType="append">Search</InputGroupAddon>
             </InputGroup>
           </CardHeader>
-            <CardBody>
-                <BlockUi blocking={this.state.fetching}>
-                  {this.state.participantList.length ? (
-                    <ParticipantList
-                      data={this.state.participantList}
-                      downloadList={() => this.downloadList()}
-                    />
-                  ) : (
-                    <CardBody> Ooops, No Results Found... </CardBody>
-                  )}
-                </BlockUi>
-            </CardBody>
-            <CardFooter>
-              Showing {this.state.participantList.length} of {this.state.count}
-            </CardFooter>
+          <CardBody>
+            <BlockUi blocking={this.state.fetching}>
+              {this.state.participantList.length ? (
+                  <ParticipantList
+                    data={this.state.participantList}
+                    downloadList={() => this.downloadList()}
+                    dataLength = {this.state.count}
+                    paginationChange={(event) => this.paginationChange(event)}
+                    page={this.state.page}
+                  />
+              ) : (
+                  <CardBody> Ooops, No Results Found... </CardBody>
+                )}
+            </BlockUi>
+          </CardBody>
+          <CardFooter>
+            Showing {this.state.participantList.length} of {this.state.count}
+          </CardFooter>
         </Card>
       </div>
     );

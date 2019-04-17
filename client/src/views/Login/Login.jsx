@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { startLogin } from '../../actions/auth'
 import { showError, showInfo } from "../../actions/feedback";
@@ -40,8 +39,9 @@ class Login extends Component {
       return this.props.dispatch(showError("Username field is required"));
     }
     if (!password) {
-      return this.props.dispatch(showError("Please provide a valid password"));
+      return this.props.dispatch(showError("Stop trying to log in... Pray!!!"));
     }
+    this.props.dispatch(showInfo("Logging you in"))
     return this.props.dispatch(startLogin({user: this.state}))
   }
 
@@ -50,8 +50,8 @@ class Login extends Component {
     return (
       <div className="login-container">
           <Row className="justify-content-center">
-            <Col md="8">
-              <Card className="p-4">
+          <Col md={11} >
+              <Card>
                 <CardBody>
                   <p className="text-muted">Sign In:</p>
                   <InputGroup className="mb-3">
@@ -66,7 +66,7 @@ class Login extends Component {
                       name="username"
                       onChange={e => this.handleInputChange(e)}
                       value={username}
-                    />
+                      />
                   </InputGroup>
                   <InputGroup className="mb-4">
                     <InputGroupAddon addonType="prepend">
@@ -80,7 +80,7 @@ class Login extends Component {
                       name="password"
                       onChange={e => this.handleInputChange(e)}
                       value={password}
-                    />
+                      />
                   </InputGroup>
                   <Row>
                     <Col xs="6">
@@ -88,14 +88,14 @@ class Login extends Component {
                         color="primary"
                         className="px-4"
                         onClick={() => this.submit()}
-                      >
+                        >
                         Login
                       </Button>
                     </Col>
                   </Row>
                 </CardBody>
               </Card>
-            </Col>
+              </Col>
           </Row>
       </div>
     );

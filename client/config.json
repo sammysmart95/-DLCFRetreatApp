@@ -13,9 +13,15 @@
       "src": "fontawesome"
     },
     {
-      "uid": "f27bba41a700af51a4dd23cf4edea61d",
-      "css": "headphones",
+      "uid": "b08cfe8039de2ce815686aced2caef06",
+      "css": "download",
       "code": 59393,
+      "src": "entypo"
+    },
+    {
+      "uid": "48b87105bd38c20315f1b705b8c7b38c",
+      "css": "list",
+      "code": 59394,
       "src": "fontawesome"
     },
     {
@@ -23,24 +29,6 @@
       "css": "download-1",
       "code": 59395,
       "src": "fontawesome"
-    },
-    {
-      "uid": "7yekfd0qlkgp6emwfbo10sjdmf8pewli",
-      "css": "download",
-      "code": 59394,
-      "src": "typicons"
-    },
-    {
-      "uid": "86ee1fc7ff57e9c9c60d8a5e57183776",
-      "css": "user",
-      "code": 59396,
-      "src": "iconic"
-    },
-    {
-      "uid": "8beac4a5fd5bed9f82ca7a96cc8ba218",
-      "css": "key",
-      "code": 59397,
-      "src": "entypo"
     }
   ]
 }

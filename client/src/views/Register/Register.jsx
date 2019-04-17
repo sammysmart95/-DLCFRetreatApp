@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { startRegister } from "../../actions/auth";
 import { showError, showInfo } from "../../actions/feedback";
@@ -55,7 +54,7 @@ class Register extends Component {
     return (
       <div className="login-container">
         <Row className="justify-content-center">
-          <Col md="8">
+          <Col md={11}>
             <Card className="p-4">
               <CardBody>
                 <p className="text-muted">Create Account</p>

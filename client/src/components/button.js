@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import { transparentize, darken, lighten } from "polished";
+import { darken } from "polished";
 import Theme from "../theme";
 
 export const Button = styled.div`

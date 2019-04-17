@@ -3,7 +3,7 @@ import uuid from "uuid/v4";
 
 const Schema = mongoose.Schema;
 
-const participantsSchema = new Schema({
+const participantSchema = new Schema({
   sid: {
     type: Schema.Types.String,
     required: true,
@@ -18,13 +18,13 @@ const participantsSchema = new Schema({
     type: Schema.Types.String,
     required: true,
     index: true,
-    unique: true
+    // unique: true
   },
   whatsAppNumber: {
     type: Schema.Types.String,
-    required: true,
+    // required: true,
     index: true,
-    unique: true
+    // unique: true
   },
   gender: {
     type: Schema.Types.String,
@@ -39,8 +39,6 @@ const participantsSchema = new Schema({
   },
   email: {
     type: Schema.Types.String,
-    // required: true,
-    unique: true
   },
   status: {
     type: Schema.Types.String,
@@ -71,4 +69,4 @@ const participantsSchema = new Schema({
   }
 });
 
-export default mongoose.model("Participants", participantsSchema);
+export default mongoose.model("Participant", participantSchema);

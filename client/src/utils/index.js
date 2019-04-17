@@ -1,7 +1,4 @@
 import "whatwg-fetch";
-import { config } from "../config";
-
-const serverURL = config.serverURL;
 
 export const callApi = (url, data, method) => {
   console.log("Calling API... " + url);
@@ -19,13 +16,14 @@ export const callApi = (url, data, method) => {
       options.headers.Accept = "application/json";
       options.headers["Content-Type"] = "application/json";
     }
-    fetch(`${serverURL}api${url}`, options)
+    fetch(`/api${url}`, options)
       .then(res => {
         if (res.ok) return res.json();
         reject(new Error(res.statusText));
       })
       .then(data => resolve(data))
       .catch(err => {
+        console.log(err)
         reject(err);
       });
   });
@@ -47,7 +45,7 @@ export const callCustomApi = (url, data, method) => {
       options.headers.Accept = "application/json";
       options.headers["Content-Type"] = "application/json";
     }
-    fetch(`${serverURL}${url}`, options)
+    fetch(`${url}`, options)
       .then(res => {
         if (res.ok) return res.json();
         reject(new Error(res.statusText));
@@ -74,7 +72,7 @@ export const fileUpload = data => {
       credentials: "include",
       body: file
     };
-    fetch(`${serverURL}api/uploadFile`, options)
+    fetch(`/api/uploadFile`, options)
       .then(res => {
         if (res.ok) return res.json();
         reject(new Error(res.statusText));
@@ -87,7 +85,7 @@ export const fileUpload = data => {
   });
 };
 
-export const downloadFile = (data, fileName) => {
+export const downloadFile = (url, fileName) => {
   return new Promise(function(resolve, reject) {
     let options = {
       method: "GET",
@@ -95,7 +93,7 @@ export const downloadFile = (data, fileName) => {
       redirect: "follow",
       credentials: "include"
     };
-    fetch(`${serverURL}api/downloadFile/${data}`, options)
+    fetch(`/api${url}`, options)
       .then(res => {
         if (res.ok) {
           return res.blob();

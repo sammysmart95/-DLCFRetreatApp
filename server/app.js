@@ -19,20 +19,19 @@ app.use(
   })
 );
 
-app.use('/public', express.static(path.join(__dirname, 'public')))
-
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
+  );
   next();
 });
 
-app.use(
-  cors({
-    origin: "http://192.168.0.102:3000",
-    credentials: true
-  })
-);
+app.use('/server/public', express.static(path.join(__dirname, 'public')))
+
+app.use(express.static(path.join(__dirname, "../client/build")));
+
 
 app.use(bodyParser.json());
 
@@ -60,6 +59,14 @@ app.use(fileUpload());
 
 // Routes
 app.use("/", routes);
+
+app.get('/*', function(req, res) {
+  res.sendFile(path.join(__dirname, '../client/build/index.html'), function(err) {
+    if (err) {
+      res.status(500).send(err)
+    }
+  })
+})
 
 app.use((err, req, res, next) => {
   // eslint-disable-line no-unused-vars

@@ -17,5 +17,6 @@ export default [
   { id: "12-DLCF", name: "Purity" },
   { id: "13-DLCF", name: "Unity" },
   { id: "14-DLCF", name: "Winner" },
+  { id: "19-DLCF", name: "Victory" },
   { id: "15-DLCF", name: "Others" },
 ];
