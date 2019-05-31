@@ -9,6 +9,16 @@ import Groups from "../../utils/Groups";
 import "./RegisterPage.css";
 import Table from "../../components/Table.jsx";
 
+const regions = [
+  "Karu",
+  "Lafia",
+  "Keffi",
+  "Panda",
+  "Akwanga",
+  "Toto",
+  "Others"
+];
+
 class RegisterPage extends Component {
   constructor() {
     super();
@@ -27,7 +37,8 @@ class RegisterPage extends Component {
         course: "",
         ageGroup: "",
         group: "",
-        whatsAppNumber: ""
+        whatsAppNumber: "",
+        region: ""
       },
       success: false,
       render: "phoneNumber",
@@ -102,7 +113,8 @@ class RegisterPage extends Component {
     console.log(participant);
     this.setState({
       ...this.state,
-      selectedUser: participant
+      selectedUser: participant,
+      filteredData: []
     });
   };
 
@@ -120,8 +132,22 @@ class RegisterPage extends Component {
     });
   };
 
+  handleSelectedInputChange = e => {
+    let { name, value } = e.target;
+    let expectedInputs = {
+      ...this.state.selectedUser,
+      [name]: value
+    };
+    this.setState({
+      ...this.state,
+      selectedUser: {
+        ...expectedInputs
+      }
+    });
+  };
+
   verifyUserData = e => {
-    const { value } = e.target
+    const { value } = e.target;
     this.setState({
       ...this.state,
       selectedUser: {}
@@ -151,8 +177,15 @@ class RegisterPage extends Component {
       denomination,
       department,
       phoneNumber,
-      email
+      email,
+      region
     } = this.state.selectedUser;
+    if (!phoneNumber) {
+      return this.props.dispatch(showError("Provide a Phone Number"));
+    }
+    if (!region) {
+      return this.props.dispatch(showError("Select Region"));
+    }
 
     callApi(
       "/registerParticipant",
@@ -197,8 +230,10 @@ class RegisterPage extends Component {
       course,
       group,
       status,
-      whatsAppNumber
+      whatsAppNumber,
+      region
     } = this.state.inputs;
+    const { selectedUser } = this.state;
     return (
       <div className="body-page-container">
         <div className="header">
@@ -227,10 +262,11 @@ class RegisterPage extends Component {
                           placeholder="&nbsp;"
                           className="styled-input"
                           name="phoneNumber"
-                          value={phoneNumber}
                           onChange={this.verifyUserData}
                         />
-                        <span className="label">Phone Number</span>
+                        <span className="label">
+                          Name or Phone Number or Email Address
+                        </span>
                         <span className="border" />
                       </label>
                     </div>
@@ -240,6 +276,37 @@ class RegisterPage extends Component {
                         selected={this.state.selectedUser}
                         onSelect={this.selectParticipant}
                       />
+                    ) : null}
+                    {this.state.selectedUser.name ? (
+                      <div>
+                        <label htmlFor="phoneNumber" className="inp">
+                          <input
+                            type="text"
+                            id="phoneNumber"
+                            placeholder="&nbsp;"
+                            className="styled-input"
+                            name="phoneNumber"
+                            value={selectedUser.phoneNumber}
+                            onChange={this.handleSelectedInputChange}
+                          />
+                          <span className="label">Phone Number</span>
+                          <span className="border" />
+                        </label>
+                        <select
+                          name="region"
+                          id="region"
+                          value={selectedUser.region}
+                          onChange={this.handleSelectedInputChange}
+                          className="styled-input"
+                        >
+                          <option value="">Select Region</option>
+                          {regions.map(reg => (
+                            <option value={reg} key={reg}>
+                              {reg}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
                     ) : null}
                   </CardBody>
                 ) : (
@@ -407,35 +474,63 @@ class RegisterPage extends Component {
                           </label>
                         </div>
                       </Col>
-                      {status === "member" && (
-                        <Col md={6}>
-                          <Row>
-                            <Col xs={5}>
-                              <label className="select-title" htmlFor="group">
-                                {" "}
-                                Group:{" "}
-                              </label>
-                            </Col>
-                            <Col xs={7}>
-                              <select
-                                name="group"
-                                id="group"
-                                value={group}
-                                onChange={this.handleInputChange}
-                                className="styled-input"
-                              >
-                                <option value="">Select Group</option>
-                                {Groups.map(group => (
-                                  <option value={group.name} key={group.id}>
-                                    {" "}
-                                    {group.name}{" "}
-                                  </option>
-                                ))}
-                              </select>
-                            </Col>
-                          </Row>
-                        </Col>
-                      )}
+                      <Col md={6}>
+                        <Row>
+                          <Col xs={5}>
+                            <label className="select-title" htmlFor="group">
+                              Institution
+                            </label>
+                          </Col>
+                          <Col xs={7}>
+                            <select
+                              name="group"
+                              id="group"
+                              value={group}
+                              onChange={this.handleInputChange}
+                              className="styled-input"
+                            >
+                              <option value="">Select Group</option>
+                              {Groups.map(group => (
+                                <option value={group.name} key={group.id}>
+                                  {" "}
+                                  {group.name}{" "}
+                                </option>
+                              ))}
+                            </select>
+                          </Col>
+                        </Row>
+                      </Col>
+                      <Col md={6}>
+                        <label htmlFor="institution" className="inp">
+                          <input
+                            type="text"
+                            id="institution"
+                            placeholder="&nbsp;"
+                            className="styled-input"
+                            name="institution"
+                            value={institution}
+                            onChange={this.handleInputChange}
+                          />
+                          <span className="label">Institution</span>
+                          <span className="border" />
+                        </label>
+                      </Col>
+                      <Col md={6}>
+                        <select
+                          name="region"
+                          id="region"
+                          value={region}
+                          onChange={this.handleInputChange}
+                          className="styled-input"
+                        >
+                          <option value="">Select Region</option>
+                          {regions.map(reg => (
+                            <option value={reg} key={reg}>
+                              {reg}
+                            </option>
+                          ))}
+                        </select>
+                      </Col>
                       <Col md={6}>
                         <label htmlFor="email" className="inp">
                           <input
@@ -532,21 +627,6 @@ class RegisterPage extends Component {
                             onChange={this.handleInputChange}
                           />
                           <span className="label">Course of Study</span>
-                          <span className="border" />
-                        </label>
-                      </Col>
-                      <Col md={6}>
-                        <label htmlFor="institution" className="inp">
-                          <input
-                            type="text"
-                            id="institution"
-                            placeholder="&nbsp;"
-                            className="styled-input"
-                            name="institution"
-                            value={institution}
-                            onChange={this.handleInputChange}
-                          />
-                          <span className="label">Institution</span>
                           <span className="border" />
                         </label>
                       </Col>

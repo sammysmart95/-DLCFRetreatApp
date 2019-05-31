@@ -58,6 +58,9 @@ const participantSchema = new Schema({
     type: Schema.Types.String,
     // required: true
   },
+  region: {
+    type: Schema.Types.String
+  },
   created: {
     type: Date,
     required: true,
