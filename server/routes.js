@@ -1,5 +1,5 @@
 import express, { Router } from "express";
-import { CreateParticipant, GetFiles, AuthMe, GetParticipants, CreateFeedback, CreateTestimony, GetFeedback, GetTestimonies } from './controllers/api'
+import { CreateParticipant, GetFiles, AuthMe, GetParticipants, CreateFeedback, CreateTestimony, GetFeedback, GetTestimonies, CheckUserData } from './controllers/api'
 import { FileUpload, DownloadParticipantList, DownloadFeedbackList, DownloadTestimonyList } from './controllers/admin'
 import { CreateUser, Login } from './controllers/auth'
 import path from "path";
@@ -32,6 +32,7 @@ api.post("/getTestimonies/:id", GetTestimonies)
 api.post("/submitFeedback", CreateFeedback)
 api.post("/submitTestimony", CreateTestimony)
 api.post('/registerParticipant', CreateParticipant)
+api.post('/checkUser', CheckUserData)
 api.post('/uploadFile', FileUpload)
 
 export default router;

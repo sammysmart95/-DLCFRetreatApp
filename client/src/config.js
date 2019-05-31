@@ -1,5 +1,5 @@
 export const config = {
-  programName: 'National Easter Retreat',
-  programTheme: "The Resurrection Power",
+  programName: 'Adlegatio',
+  programTheme: "Adlegatio",
   year: '2019',
 }

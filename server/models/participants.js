@@ -13,23 +13,22 @@ const participantSchema = new Schema({
   },
   fullName: {
     type: Schema.Types.String,
-    required: true
+    // required: true
   },
   phoneNumber: {
     type: Schema.Types.String,
-    required: true,
-    unique: true
+    // required: true,
   },
   whatsAppNumber: {
     type: Schema.Types.String,
   },
   gender: {
     type: Schema.Types.String,
-    required: true
+    // required: true
   },
   address: {
     type: Schema.Types.String,
-    required: true
+    // required: true
   },
   group: {
     type: Schema.Types.String
@@ -39,11 +38,11 @@ const participantSchema = new Schema({
   },
   status: {
     type: Schema.Types.String,
-    required: true
+    // required: true
   },
   denomination: {
     type: Schema.Types.String,
-    required: true
+    // required: true
   },
   institution: {
     type: Schema.Types.String
@@ -53,11 +52,11 @@ const participantSchema = new Schema({
   },
   ageGroup: {
     type: Schema.Types.String,
-    required: true
+    // required: true
   },
   category: {
     type: Schema.Types.String,
-    required: true
+    // required: true
   },
   created: {
     type: Date,

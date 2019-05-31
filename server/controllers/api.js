@@ -7,6 +7,7 @@ import Participant from "../models/participants";
 import Feedbacks from "../models/feedback";
 import FileCollection from "../models/files";
 import Testimonies from "../models/testimonies";
+import { registrationData } from "./data";
 
 export const CreateParticipant = (req, res) => {
   Participant.create({ ...req.body })
@@ -27,6 +28,24 @@ export const CreateParticipant = (req, res) => {
         customMessage: errorMessage
       });
     });
+};
+
+export const CheckUserData = (req, res) => {
+  const { data } = req.body;
+  let filteredData = [];
+  if (data) {
+    filteredData = registrationData.filter(dat => {
+      if (
+        (dat.name &&
+          dat.name.toLocaleLowerCase().includes(data.toLocaleLowerCase())) ||(dat.email &&
+          dat.email.toLocaleLowerCase().includes(data.toLocaleLowerCase())) ||
+        (dat.phoneNumber && dat.phoneNumber.includes(data))
+      ) {
+        return dat;
+      }
+    });
+  }
+  res.json(filteredData.slice(0, 15));
 };
 
 export const GetFiles = async (req, res) => {

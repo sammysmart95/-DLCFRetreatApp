@@ -7,6 +7,7 @@ import { callApi } from "../../utils";
 import { Link } from "react-router-dom";
 import Groups from "../../utils/Groups";
 import "./RegisterPage.css";
+import Table from "../../components/Table.jsx";
 
 class RegisterPage extends Component {
   constructor() {
@@ -28,7 +29,10 @@ class RegisterPage extends Component {
         group: "",
         whatsAppNumber: ""
       },
-      success: false
+      success: false,
+      render: "phoneNumber",
+      filteredData: [],
+      selectedUser: {}
     };
   }
 
@@ -94,6 +98,14 @@ class RegisterPage extends Component {
       });
   };
 
+  selectParticipant = participant => {
+    console.log(participant);
+    this.setState({
+      ...this.state,
+      selectedUser: participant
+    });
+  };
+
   handleInputChange = e => {
     let { name, value } = e.target;
     let expectedInputs = {
@@ -106,6 +118,72 @@ class RegisterPage extends Component {
         ...expectedInputs
       }
     });
+  };
+
+  verifyUserData = e => {
+    const { value } = e.target
+    this.setState({
+      ...this.state,
+      selectedUser: {}
+    });
+    this.verifyUser(value);
+  };
+
+  verifyUser = value => {
+    callApi("/checkUser", { data: value }, "POST")
+      .then(data => {
+        this.setState({
+          filteredData: data
+        });
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
+  registerPreviousUser = () => {
+    const {
+      name,
+      gender,
+      institution,
+      age,
+      status,
+      denomination,
+      department,
+      phoneNumber,
+      email
+    } = this.state.selectedUser;
+
+    callApi(
+      "/registerParticipant",
+      {
+        fullName: name,
+        phoneNumber,
+        gender: gender,
+        email,
+        status,
+        denomination,
+        institution,
+        course: department,
+        ageGroup: age
+      },
+      "POST"
+    )
+      .then(data => {
+        this.props.dispatch(showInfo(data.message));
+        this.setState({
+          success: true,
+          blocking: false
+        });
+      })
+      .catch(err => {
+        console.log(err);
+        console.log(err.status);
+        this.setState({
+          blocking: false
+        });
+        this.props.dispatch(showError("User already registered"));
+      });
   };
 
   render() {
@@ -139,113 +217,9 @@ class RegisterPage extends Component {
           <BlockUI blocking={this.state.blocking}>
             {!this.state.success ? (
               <Card>
-                <CardBody>
-                  <Row>
-                    <Col md={6}>
-                      <label htmlFor="inp" className="inp">
-                        <input
-                          type="text"
-                          id="inp"
-                          placeholder="&nbsp;"
-                          className="styled-input"
-                          name="fullName"
-                          value={fullName}
-                          onChange={this.handleInputChange}
-                        />
-                        <span className="label">Full name:</span>
-                        <span className="border" />
-                      </label>
-                    </Col>
-                    <Col md={6}>
-                      <div className="select-div">
-                        <label className="select-title"> Gender: </label>
-                        <label className="select-container">
-                          {" "}
-                          Female
-                          <input
-                            type="radio"
-                            name="gender"
-                            id="gender"
-                            value="female"
-                            onChange={this.handleInputChange}
-                          />{" "}
-                          <span className="checkmark" />
-                        </label>
-                        <label className="select-container">
-                          {" "}
-                          Male
-                          <input
-                            type="radio"
-                            name="gender"
-                            id="gender"
-                            value="male"
-                            onChange={this.handleInputChange}
-                          />{" "}
-                          <span className="checkmark" />
-                        </label>
-                      </div>
-                    </Col>
-                    <Col md={6}>
-                      <Row>
-                        <Col xs={5}>
-                          <label className="select-title"> Age Group: </label>
-                        </Col>
-                        <Col xs={7}>
-                          <label className="select-container">
-                            {" "}
-                            15 - 25
-                            <input
-                              type="radio"
-                              name="ageGroup"
-                              id="ageGroup"
-                              value="15 - 25"
-                              onChange={this.handleInputChange}
-                            />{" "}
-                            <span className="checkmark" />
-                          </label>
-                          <label className="select-container">
-                            {" "}
-                            26 - 35
-                            <input
-                              type="radio"
-                              name="ageGroup"
-                              id="ageGroup"
-                              value="26 - 35"
-                              onChange={this.handleInputChange}
-                            />{" "}
-                            <span className="checkmark" />
-                          </label>
-                          <label className="select-container">
-                            {" "}
-                            36 - above
-                            <input
-                              type="radio"
-                              name="ageGroup"
-                              id="ageGroup"
-                              value="36 - above"
-                              onChange={this.handleInputChange}
-                            />{" "}
-                            <span className="checkmark" />
-                          </label>
-                        </Col>
-                      </Row>
-                    </Col>
-                    <Col md={6}>
-                      <label htmlFor="address" className="inp">
-                        <textarea
-                          type="text"
-                          id="address"
-                          placeholder="&nbsp;"
-                          className="styled-input styled-textarea"
-                          name="address"
-                          value={address}
-                          onChange={this.handleInputChange}
-                        />
-                        <span className="label">Address</span>
-                        <span className="border" />
-                      </label>
-                    </Col>
-                    <Col md={6}>
+                {this.state.render === "phoneNumber" ? (
+                  <CardBody>
+                    <div style={{ marginTop: 20 }}>
                       <label htmlFor="phoneNumber" className="inp">
                         <input
                           type="text"
@@ -254,205 +228,351 @@ class RegisterPage extends Component {
                           className="styled-input"
                           name="phoneNumber"
                           value={phoneNumber}
-                          onChange={this.handleInputChange}
+                          onChange={this.verifyUserData}
                         />
                         <span className="label">Phone Number</span>
                         <span className="border" />
                       </label>
-                    </Col>
-                    <Col md={6}>
-                      <label htmlFor="whatsAppNumber" className="inp">
-                        <input
-                          type="text"
-                          id="whatsAppNumber"
-                          placeholder="&nbsp;"
-                          className="styled-input"
-                          name="whatsAppNumber"
-                          value={whatsAppNumber}
-                          onChange={this.handleInputChange}
-                        />
-                        <span className="label">Whatsapp Number</span>
-                        <span className="border" />
-                      </label>
-                    </Col>
-                    <Col md={6}>
-                      <div className="select-div">
-                        <label className="select-container">
-                          {" "}
-                          Member
+                    </div>
+                    {this.state.filteredData.length ? (
+                      <Table
+                        data={this.state.filteredData}
+                        selected={this.state.selectedUser}
+                        onSelect={this.selectParticipant}
+                      />
+                    ) : null}
+                  </CardBody>
+                ) : (
+                  <CardBody>
+                    <Row>
+                      <Col md={6}>
+                        <label htmlFor="inp" className="inp">
                           <input
-                            type="radio"
-                            name="status"
-                            id="member"
-                            value="member"
+                            type="text"
+                            id="inp"
+                            placeholder="&nbsp;"
+                            className="styled-input"
+                            name="fullName"
+                            value={fullName}
                             onChange={this.handleInputChange}
-                          />{" "}
-                          <span className="checkmark" />
+                          />
+                          <span className="label">Full name:</span>
+                          <span className="border" />
                         </label>
-                        <label className="select-container">
-                          {" "}
-                          Invitee
-                          <input
-                            type="radio"
-                            name="status"
-                            id="invitee"
-                            value="invitee"
-                            onChange={this.handleInputChange}
-                          />{" "}
-                          <span className="checkmark" />
-                        </label>
-                      </div>
-                    </Col>
-                    {status === "member" && (
+                      </Col>
+                      <Col md={6}>
+                        <div className="select-div">
+                          <label className="select-title"> Gender: </label>
+                          <label className="select-container">
+                            {" "}
+                            Female
+                            <input
+                              type="radio"
+                              name="gender"
+                              id="gender"
+                              value="female"
+                              onChange={this.handleInputChange}
+                            />{" "}
+                            <span className="checkmark" />
+                          </label>
+                          <label className="select-container">
+                            {" "}
+                            Male
+                            <input
+                              type="radio"
+                              name="gender"
+                              id="gender"
+                              value="male"
+                              onChange={this.handleInputChange}
+                            />{" "}
+                            <span className="checkmark" />
+                          </label>
+                        </div>
+                      </Col>
                       <Col md={6}>
                         <Row>
                           <Col xs={5}>
-                            <label className="select-title" htmlFor="group">
-                              {" "}
-                              Group:{" "}
-                            </label>
+                            <label className="select-title"> Age Group: </label>
                           </Col>
                           <Col xs={7}>
-                            <select
-                              name="group"
-                              id="group"
-                              value={group}
-                              onChange={this.handleInputChange}
-                              className="styled-input"
-                            >
-                              <option value="">Select Group</option>
-                              {Groups.map(group => (
-                                <option value={group.name} key={group.id}>
-                                  {" "}
-                                  {group.name}{" "}
-                                </option>
-                              ))}
-                            </select>
+                            <label className="select-container">
+                              {" "}
+                              15 - 25
+                              <input
+                                type="radio"
+                                name="ageGroup"
+                                id="ageGroup"
+                                value="15 - 25"
+                                onChange={this.handleInputChange}
+                              />{" "}
+                              <span className="checkmark" />
+                            </label>
+                            <label className="select-container">
+                              {" "}
+                              26 - 35
+                              <input
+                                type="radio"
+                                name="ageGroup"
+                                id="ageGroup"
+                                value="26 - 35"
+                                onChange={this.handleInputChange}
+                              />{" "}
+                              <span className="checkmark" />
+                            </label>
+                            <label className="select-container">
+                              {" "}
+                              36 - above
+                              <input
+                                type="radio"
+                                name="ageGroup"
+                                id="ageGroup"
+                                value="36 - above"
+                                onChange={this.handleInputChange}
+                              />{" "}
+                              <span className="checkmark" />
+                            </label>
                           </Col>
                         </Row>
                       </Col>
-                    )}
-                    <Col md={6}>
-                      <label htmlFor="email" className="inp">
-                        <input
-                          type="text"
-                          id="email"
-                          placeholder="&nbsp;"
-                          className="styled-input"
-                          name="email"
-                          value={email}
-                          onChange={this.handleInputChange}
-                        />
-                        <span className="label">Email Address</span>
-                        <span className="border" />
-                      </label>
-                    </Col>
-                    <Col md={6}>
-                      <label htmlFor="denomination" className="inp">
-                        <input
-                          type="text"
-                          id="denomination"
-                          placeholder="&nbsp;"
-                          className="styled-input"
-                          name="denomination"
-                          value={denomination}
-                          onChange={this.handleInputChange}
-                        />
-                        <span className="label">
-                          Denomination (Eg. Deeper Life){" "}
-                        </span>
-                        <span className="border" />
-                      </label>
-                    </Col>
-                    <Col md={6}>
-                      <div className="select-div">
-                        <label className="select-container">
-                          {" "}
-                          Student
-                          <input
-                            type="radio"
-                            name="category"
-                            id="student"
-                            value="student"
+                      <Col md={6}>
+                        <label htmlFor="address" className="inp">
+                          <textarea
+                            type="text"
+                            id="address"
+                            placeholder="&nbsp;"
+                            className="styled-input styled-textarea"
+                            name="address"
+                            value={address}
                             onChange={this.handleInputChange}
-                          />{" "}
-                          <span className="checkmark" />
+                          />
+                          <span className="label">Address</span>
+                          <span className="border" />
                         </label>
-                        <label className="select-container">
-                          {" "}
-                          Corper
+                      </Col>
+                      <Col md={6}>
+                        <label htmlFor="phoneNumber" className="inp">
                           <input
-                            type="radio"
-                            name="category"
-                            id="corper"
-                            value="corper"
+                            type="text"
+                            id="phoneNumber"
+                            placeholder="&nbsp;"
+                            className="styled-input"
+                            name="phoneNumber"
+                            value={phoneNumber}
                             onChange={this.handleInputChange}
-                          />{" "}
-                          <span className="checkmark" />
+                          />
+                          <span className="label">Phone Number</span>
+                          <span className="border" />
                         </label>
-                        <label className="select-container">
-                          {" "}
-                          Staff
+                      </Col>
+                      <Col md={6}>
+                        <label htmlFor="whatsAppNumber" className="inp">
                           <input
-                            type="radio"
-                            name="category"
-                            id="staff"
-                            value="staff"
+                            type="text"
+                            id="whatsAppNumber"
+                            placeholder="&nbsp;"
+                            className="styled-input"
+                            name="whatsAppNumber"
+                            value={whatsAppNumber}
                             onChange={this.handleInputChange}
-                          />{" "}
-                          <span className="checkmark" />
+                          />
+                          <span className="label">Whatsapp Number</span>
+                          <span className="border" />
                         </label>
-                        <label className="select-container">
-                          {" "}
-                          Others
+                      </Col>
+                      <Col md={6}>
+                        <div className="select-div">
+                          <label className="select-container">
+                            {" "}
+                            Member
+                            <input
+                              type="radio"
+                              name="status"
+                              id="member"
+                              value="member"
+                              onChange={this.handleInputChange}
+                            />{" "}
+                            <span className="checkmark" />
+                          </label>
+                          <label className="select-container">
+                            {" "}
+                            Invitee
+                            <input
+                              type="radio"
+                              name="status"
+                              id="invitee"
+                              value="invitee"
+                              onChange={this.handleInputChange}
+                            />{" "}
+                            <span className="checkmark" />
+                          </label>
+                        </div>
+                      </Col>
+                      {status === "member" && (
+                        <Col md={6}>
+                          <Row>
+                            <Col xs={5}>
+                              <label className="select-title" htmlFor="group">
+                                {" "}
+                                Group:{" "}
+                              </label>
+                            </Col>
+                            <Col xs={7}>
+                              <select
+                                name="group"
+                                id="group"
+                                value={group}
+                                onChange={this.handleInputChange}
+                                className="styled-input"
+                              >
+                                <option value="">Select Group</option>
+                                {Groups.map(group => (
+                                  <option value={group.name} key={group.id}>
+                                    {" "}
+                                    {group.name}{" "}
+                                  </option>
+                                ))}
+                              </select>
+                            </Col>
+                          </Row>
+                        </Col>
+                      )}
+                      <Col md={6}>
+                        <label htmlFor="email" className="inp">
                           <input
-                            type="radio"
-                            name="category"
-                            id="others"
-                            value="others"
+                            type="text"
+                            id="email"
+                            placeholder="&nbsp;"
+                            className="styled-input"
+                            name="email"
+                            value={email}
                             onChange={this.handleInputChange}
-                          />{" "}
-                          <span className="checkmark" />
+                          />
+                          <span className="label">Email Address</span>
+                          <span className="border" />
                         </label>
-                      </div>
-                    </Col>
-                    <Col md={6}>
-                      <label htmlFor="course" className="inp">
-                        <input
-                          type="text"
-                          id="course"
-                          placeholder="&nbsp;"
-                          className="styled-input"
-                          name="course"
-                          value={course}
-                          onChange={this.handleInputChange}
-                        />
-                        <span className="label">Course of Study</span>
-                        <span className="border" />
-                      </label>
-                    </Col>
-                    <Col md={6}>
-                      <label htmlFor="institution" className="inp">
-                        <input
-                          type="text"
-                          id="institution"
-                          placeholder="&nbsp;"
-                          className="styled-input"
-                          name="institution"
-                          value={institution}
-                          onChange={this.handleInputChange}
-                        />
-                        <span className="label">Institution</span>
-                        <span className="border" />
-                      </label>
-                    </Col>
-                  </Row>
-                </CardBody>
+                      </Col>
+                      <Col md={6}>
+                        <label htmlFor="denomination" className="inp">
+                          <input
+                            type="text"
+                            id="denomination"
+                            placeholder="&nbsp;"
+                            className="styled-input"
+                            name="denomination"
+                            value={denomination}
+                            onChange={this.handleInputChange}
+                          />
+                          <span className="label">
+                            Denomination (Eg. Deeper Life){" "}
+                          </span>
+                          <span className="border" />
+                        </label>
+                      </Col>
+                      <Col md={6}>
+                        <div className="select-div">
+                          <label className="select-container">
+                            {" "}
+                            Student
+                            <input
+                              type="radio"
+                              name="category"
+                              id="student"
+                              value="student"
+                              onChange={this.handleInputChange}
+                            />{" "}
+                            <span className="checkmark" />
+                          </label>
+                          <label className="select-container">
+                            {" "}
+                            Corper
+                            <input
+                              type="radio"
+                              name="category"
+                              id="corper"
+                              value="corper"
+                              onChange={this.handleInputChange}
+                            />{" "}
+                            <span className="checkmark" />
+                          </label>
+                          <label className="select-container">
+                            {" "}
+                            Staff
+                            <input
+                              type="radio"
+                              name="category"
+                              id="staff"
+                              value="staff"
+                              onChange={this.handleInputChange}
+                            />{" "}
+                            <span className="checkmark" />
+                          </label>
+                          <label className="select-container">
+                            {" "}
+                            Others
+                            <input
+                              type="radio"
+                              name="category"
+                              id="others"
+                              value="others"
+                              onChange={this.handleInputChange}
+                            />{" "}
+                            <span className="checkmark" />
+                          </label>
+                        </div>
+                      </Col>
+                      <Col md={6}>
+                        <label htmlFor="course" className="inp">
+                          <input
+                            type="text"
+                            id="course"
+                            placeholder="&nbsp;"
+                            className="styled-input"
+                            name="course"
+                            value={course}
+                            onChange={this.handleInputChange}
+                          />
+                          <span className="label">Course of Study</span>
+                          <span className="border" />
+                        </label>
+                      </Col>
+                      <Col md={6}>
+                        <label htmlFor="institution" className="inp">
+                          <input
+                            type="text"
+                            id="institution"
+                            placeholder="&nbsp;"
+                            className="styled-input"
+                            name="institution"
+                            value={institution}
+                            onChange={this.handleInputChange}
+                          />
+                          <span className="label">Institution</span>
+                          <span className="border" />
+                        </label>
+                      </Col>
+                    </Row>
+                  </CardBody>
+                )}
                 <div className="submit-button">
-                  <Button outline block onClick={this.submit}>
-                    {" "}
-                    Register{" "}
-                  </Button>
+                  {this.state.render === "phoneNumber" ? (
+                    <Button
+                      outline
+                      block
+                      onClick={() =>
+                        this.state.selectedUser.name
+                          ? this.registerPreviousUser()
+                          : this.setState({ render: "form" })
+                      }
+                    >
+                      {this.state.selectedUser.name
+                        ? "Register"
+                        : "New Registration"}
+                    </Button>
+                  ) : (
+                    <Button outline block onClick={this.submit}>
+                      Register
+                    </Button>
+                  )}
                 </div>
               </Card>
             ) : (
