@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Rancho|Satisfy');
+/* @import url('https://fonts.googleapis.com/css?family=Rancho|Satisfy'); */
 
 .App-logo {
   animation: App-logo-spin infinite 5s linear;
@@ -8,7 +8,7 @@
 .App-body {
   font-size: calc(10px + 2vmin);
   color: white;
-  font-family: 'Rancho', cursive, 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif
+  /* font-family: 'Rancho', cursive, 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif */
 }
 
 .App-link {

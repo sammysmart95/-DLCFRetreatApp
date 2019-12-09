@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
 * {
-  font-family: 'Rancho', cursive, 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-family: 'Roboto', 'sans-serif', 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
