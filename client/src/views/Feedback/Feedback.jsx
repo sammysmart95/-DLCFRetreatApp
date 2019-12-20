@@ -23,53 +23,8 @@ const TransportOptions = [
   }
 ]
 
-const messageList = [{ id: 'message-0', name: 'Hope for dry bones' },
-{ id: 'message-1', name: 'Fear not: The Promise is still good' },
-{ id: 'message-2', name: 'The lively hope of true believers' },
-{
-  id: 'message-3',
-  name: 'Unshakable assurance of the hope of glory'
-},
-{ id: 'message-4', name: 'Bible doctrines 1 - 7' },
-{ id: 'message-5', name: 'Christianity of Egoism' },
-{ id: 'message-6', name: 'Singing with praise' },
-{
-  id: 'message-7',
-  name: 'Daniel: conviction without compromise'
-},
-{ id: 'message-8', name: 'Advancing through adversity' },
-// { id: 'message-9', name: 'Fear not: Douby delays deliverance' },
-{ id: 'message-10', name: 'Self-denial and true discipleship' },
-{
-  id: 'message-11',
-  name: 'The higher way of the heavenly calling'
-},
-{ id: 'message-12', name: 'Bible doctrines 8 - 14' },
-{ id: 'message-13', name: 'Will a man rob God?' },
-{ id: 'message-14', name: 'Supplication with gratitude' },
-{ id: 'message-15', name: 'Enoch: Holy and hopeful of heaven' },
-{ id: 'message-16', name: 'Tarrying and travailing of Peniel' },
-// { id: 'message-17', name: 'Fear not: Keep your eyes on Jesus' },
-{ id: 'message-18', name: 'Serving God with the whole family' },
-// {
-//   id: 'message-19',
-//   name: 'The futility of hope without holiness'
-// },
-// { id: 'message-20', name: 'Bible Doctrines 15 - 22' },
-// { id: 'message-21', name: 'Service without cost?' },
-// { id: 'message-22', name: 'Scriptures for Growth' },
-// {
-//   id: 'message-23',
-//   name: 'Paul: Selfless love for a drifting generation'
-// },
-// {
-//   id: 'message-24',
-//   name: 'Pure Faith, precious hope and pre-eminent love'
-// },
-// {
-//   id: 'message-25',
-//   name: 'Fear not: Run the race to reach the goal'
-// }
+const messageList = [
+  // { id: 'message-0', name: 'Hope for dry bones' },
 ]
 
 class Feedback extends Component {
