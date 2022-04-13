@@ -13,6 +13,8 @@ dotenv.config();
 
 const app = express();
 
+app.use(cors({ origin: '*' }))
+
 app.use(
   logger("dev", {
     skip: () => app.get("env") === "test"

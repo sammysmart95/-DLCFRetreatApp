@@ -1,5 +1,7 @@
 import "whatwg-fetch";
 
+const BASE_URL = "http://localhost:8000"
+
 export const callApi = (url, data, method) => {
   console.log("Calling API... " + url);
   return new Promise(function(resolve, reject) {
@@ -16,7 +18,7 @@ export const callApi = (url, data, method) => {
       options.headers.Accept = "application/json";
       options.headers["Content-Type"] = "application/json";
     }
-    fetch(`/api${url}`, options)
+    fetch(`${BASE_URL}/api${url}`, options)
       .then(res => {
         if (res.ok) return res.json();
         reject(new Error(res.statusText));
@@ -69,7 +71,7 @@ export const fileUpload = data => {
       credentials: "include",
       body: file
     };
-    fetch(`/api/uploadFile`, options)
+    fetch(`${BASE_URL}/api/uploadFile`, options)
       .then(res => {
         if (res.ok) return res.json();
         reject(new Error(res.statusText));
@@ -90,7 +92,7 @@ export const downloadFile = (url, fileName) => {
       redirect: "follow",
       credentials: "include"
     };
-    fetch(`/api${url}`, options)
+    fetch(`${BASE_URL}/api${url}`, options)
       .then(res => {
         if (res.ok) {
           return res.blob();
